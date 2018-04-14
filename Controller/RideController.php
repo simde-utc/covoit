@@ -37,8 +37,8 @@ class RideController
     }
 
     public function processAddRide($request){
-        var_dump($request);
-        echo "process";
+        var_dump($request->allInputs());
+        $this->DAO->addRide($request->allInputs());
     }
 
     public function processEditRideForm(){
