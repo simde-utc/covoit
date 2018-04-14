@@ -2,8 +2,8 @@
 
 namespace App;
 
-Route::get('/login', 'LoginController@index');
-Route::get('/login/process', 'LoginController@login');
+Route::get('/login', 'LoginController@index', 'isNotLogged');
+Route::get('/login/process', 'LoginController@login', 'isNotLogged');
 Route::get('/logout', 'LoginController@logout', 'isLogged');
 Route::get('/ride/{id}', 'RideController@displayRide', 'isLogged');
 Route::get('/addride', 'RideController@displayAddRideForm', 'isLogged');
