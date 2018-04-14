@@ -21,7 +21,7 @@ class Request
 
 		$this->queries = array_merge(
 			$parsedUrl['query'] ?? [],
-			json_decode(file_get_contents('php://input'), true) ?? []
+			json_decode(file_get_contents('php://input'), true) ?? $_POST
 		);
 		$this->verb = strtoupper($_SERVER['REQUEST_METHOD']);
     }
