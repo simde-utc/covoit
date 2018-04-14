@@ -36,8 +36,9 @@ class RideController
       //new EditRideForm($rideObject);
     }
 
-    public function processAddRide(){
-
+    public function processAddRide($request){
+        var_dump($request);
+        echo "process";
     }
 
     public function processEditRideForm(){

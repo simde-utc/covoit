@@ -7,3 +7,4 @@ Route::get('/b/', 'LoginController@store');
 Route::get('/login/{type}', 'LoginController@index');
 Route::get('/ride/{id}', 'RideController@displayRide');
 Route::get('/addride', 'RideController@displayAddRideForm');
+Route::post('/submitRide', 'RideController@processAddRide');

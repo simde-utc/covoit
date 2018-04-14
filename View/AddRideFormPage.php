@@ -11,7 +11,7 @@ class AddRideFormPage
     function __construct($carsObjet)
     {
         ?>
-        <form>
+        <form action="submitRide" method="POST">
             <textarea name="description"></textarea>
             <input type="number" name="nb_free_seats"/>
             <select name="value_luggage">
@@ -25,6 +25,7 @@ class AddRideFormPage
                     echo '<option value="'.$car['idCar'].'">'.$car['model'].' '.$car['color'].'</option>';
                 }?>
             </select>
+            <input type="submit" />
         </form>
         <?php
     }
