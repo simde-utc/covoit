@@ -2,6 +2,6 @@
 
 namespace App;
 
-Route::get('/', 'LoginController@index');
+Route::get('/', 'ControllerBidon@index', 'isLogged');
 Route::get('/b/', 'LoginController@store');
 Route::get('/login/{type}', 'LoginController@index');

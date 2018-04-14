@@ -26,7 +26,7 @@ class Request
 		$this->verb = strtoupper($_SERVER['REQUEST_METHOD']);
     }
 
-	protected function getPathParts($path) {
+	public function getPathParts($path) {
 		$path = explode('/', $path);
 
 		if (isset($path[0]) && empty($path[0]))
