@@ -67,4 +67,23 @@ class DAO
 
     }
 
+    public function addCar($content){
+        try{
+            $statement = $this->connexion->prepare("INSERT INTO Car VALUES (NULL,:model,:color,:nb_seats,:owner);");
+            $statement->execute(array(
+                "model" => $content["model"],
+                "color" => $content["color"],
+                "nb_seats" => $content["nb_seats"],
+                "owner" => $content["owner"]
+            ));
+            //$result=$statement->fetch(\PDO::FETCH_ASSOC);
+            //return($result);
+        }
+        catch(PDOException $e){
+            $this->deconnexion();
+            throw new Exception("problème d'insertion dans la table Car");
+        }
+
+    }
+
 }

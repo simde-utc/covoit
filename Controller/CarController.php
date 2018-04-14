@@ -19,24 +19,27 @@ class CarController
     }
 
     public function displayCar($id){
-        $rideObject = $this->DAO->getCarFromId($id);
-        echo $rideObject["model"];
+        $CarObject = $this->DAO->getCarFromId($id);
+        $rideObject = $DAO->getRideFromId(id);
+        new EditRideForm($rideObject);
     }
 
     public function displayAddCarForm(){
-        new AddRideForm();
+        new AddCarForm();
     }
 
-    public function displayEditCarForm($ride_id){
-      $rideObject = $DAO->getCarFromId(id);
-      //new EditRideForm($rideObject);
+    public function processAddCar($content){
+        $result = $this->DAO->addCar($content);
     }
 
-    public function processAddRide(){
-
+    public function displayEditCarForm($car_id){
+      $CarObject = $this->DAO->getCarFromId($car_id);
+      new EditCarForm($CarObject);
     }
 
-    public function processEditRideForm(){
+
+
+    public function processEditCarForm(){
 
     }
 }
