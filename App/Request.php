@@ -48,7 +48,7 @@ class Request
 
 		$args = [];
 		foreach ($path as $key => $part) {
-			if ($part !== $this->path[$key]) {
+			if (strtolower($part) !== strtolower($this->path[$key])) {
 				if (preg_match("/^{(\w*)}$/", $part, $matches))
 					$args[$matches[1]] = $this->path[$key];
 				else
