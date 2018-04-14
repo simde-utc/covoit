@@ -1,7 +1,9 @@
 <?php
-
 namespace Controller;
 
+use Model\Ride;
+
+require_once "Model/Ride.php";
 /**
  *
  */
@@ -13,8 +15,6 @@ class DAO
 
     private $connexion;
 
-    // Constructeur de la classe vndflngfdlkn
-    // Initialise la connexion et renvoie une ConnexionException en cas d'echec de la connexion à la base de donnée
 
     public function __construct(){
         try{
@@ -33,6 +33,7 @@ class DAO
     }
 
     public function getRideFromId($id){
+        echo $id;
         try{
             $statement = $this->connexion->prepare("SELECT * FROM ride WHERE idRide = :id;");
             $statement->execute(array(
@@ -40,6 +41,8 @@ class DAO
             ));
             $result=$statement->fetch(\PDO::FETCH_ASSOC);
             print_r($result);
+            new Ride();
+
         }
         catch(PDOException $e){
             $this->deconnexion();
