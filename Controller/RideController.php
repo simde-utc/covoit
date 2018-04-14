@@ -26,4 +26,12 @@ class RideController
       new EditRideForm($rideObject);
     }
 
+    public function processAddRide(){
+
+    }
+
+    public function processEditRideForm(){
+
+    }
+
 }
