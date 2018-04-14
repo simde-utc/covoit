@@ -1,5 +1,13 @@
 <?php
-class View {
+
+/**
+ * Created by PhpStorm.
+ * User: yanis
+ * Date: 14/04/2018
+ * Time: 17:19
+ */
+class Page
+{
     private $head  = null ;
     private $title = null ;
     private $desc = null ;
@@ -15,6 +23,8 @@ class View {
         $this->setDesc($desc);
         $this->setAuthor($author);
     }
+
+    /* Tool functions */
 
     /**
      * Protéger les caractères spéciaux pouvant dégrader la page Web
@@ -33,7 +43,7 @@ class View {
     public function setTitle($title) {
         $this->title = $title ;
     }
-    
+
     /**
      * Affecter la description de la page
      * @param string $desc La description
@@ -41,7 +51,7 @@ class View {
     public function setDesc($desc) {
         $this->desc = $desc ;
     }
-    
+
     /**
      * Affecter l'auteur de la page
      * @param string $author L'auteur
@@ -72,7 +82,7 @@ class View {
     {$css}
 </style>
 CSS
-);    
+        );
     }
 
     /**
@@ -97,7 +107,7 @@ CSS
 {$js}
 </script>
 JS
-);    
+        );
     }
 
     /**
@@ -107,13 +117,13 @@ JS
      * @return void
      */
     public function appendJsUrl($url) {
-        $this->appendToHead("<script type='text/javascript' src='$url'></script>");    
+        $this->appendToHead("<script type='text/javascript' src='$url'></script>");
     }
 
     /**
      * Ajouter un contenu dans body
      * @param string $content Le contenu à ajouter
-     * 
+     *
      * @return void
      */
     public function appendContent($content) {
@@ -131,24 +141,21 @@ JS
             throw new Exception(__CLASS__ . ": title not set") ;
         }
         return <<<HTML
-<!doctype html>
-<html lang="fr">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="description" content="{$this->desc}">
-<meta name="author" content="{$this->author}">
-<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
-<title>{$this->title}</title>
-{$this->head}
-</head>
-<body>
-{$this->body}
-</body>
-</html>
+            <!doctype html>
+            <html lang="fr">
+            <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+            <meta name="description" content="{$this->desc}">
+            <meta name="author" content="{$this->author}">
+            <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+            <title>{$this->title}</title>
+            {$this->head}
+            </head>
+            <body>
+            {$this->body}
+            </body>
+            </html>
 HTML;
     }
-    
-    public function affiche(){
-        echo $this->toHTML();
-    }
+
 }
