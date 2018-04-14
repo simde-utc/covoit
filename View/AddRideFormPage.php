@@ -20,6 +20,11 @@ class AddRideFormPage
                 <option value="1">Petits bagages</option>
                 <option value="0">Pas de bagages</option>
             </select>
+            Depart :
+            <input type="datetime-local" name="departure_time"/>
+            <input type="text" name="departure" placeholder="departure adress">
+            Arrivée :
+            <input type="text" name="arrival" placeholder="departure adress">
             <select name="car">
                 <?php foreach ($carsObjet as $car){
                     echo '<option value="'.$car['idCar'].'">'.$car['model'].' '.$car['color'].'</option>';

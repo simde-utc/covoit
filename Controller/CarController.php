@@ -6,16 +6,13 @@ require_once("DAO.php");
 require_once("View/CarPage.php");
 require_once("View/Page.php");
 require_once("View/AddCarFormPage.php");
+require_once("View/EditCarFormPage.php");
 
 
-/**
- *
- */
+
 class CarController
 {
-    /**
-     *
-     */
+
     public $DAO;
 
     public function __construct()
@@ -33,19 +30,21 @@ class CarController
     }
 
     public function processAddCar($request){
-        // echo $request->input('all');
-        // Ajout du userID
         $result = $this->DAO->addCar($request->input('type'));
     }
 
-    public function displayEditCarForm($car_id){
-      $CarObject = $this->DAO->getCarFromId($car_id);
-      new EditCarForm($CarObject);
+    public function displayEditCarForm($request){
+      $CarObject = $this->DAO->getCarFromId($request->arg('id'));
+      new \EditCarFormPage($CarObject);
     }
 
-
-
-    public function processEditCarForm(){
-
+    public function processEditCarForm($request){
+      $content = array("model" => $request->input('model'),
+                    "color" => $request->input('color'),
+                    "nb_seats" => $request->input('nb_seats'),
+                    "owner" => 1,
+                    "idCar" => $request->input('idCar'),
+      );
+      $result = $this->DAO->UpdateCar($content);
     }
 }
