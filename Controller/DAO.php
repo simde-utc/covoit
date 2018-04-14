@@ -119,7 +119,7 @@ class DAO
 
     public function UpdateCar($content){
         try{
-            $statement = $this->connexion->prepare("UPDATE Car SET `model`=:model, `color`=:color, `nb_seats`=:nb_seats, `owner`=:owner) WHERE `idCar`=:idCar;");
+            $statement = $this->connexion->prepare("UPDATE Car SET `model`=:model, `color`=:color, `nb_seats`=:nb_seats, `owner`=:owner WHERE `idCar`=:idCar;");
             $statement->execute(array(
                 "model" => $content["model"],
                 "color" => $content["color"],
