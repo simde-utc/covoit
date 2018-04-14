@@ -46,8 +46,7 @@ class DB
 
 		if ($query->rowCount() === 0) {
 			$query = $this->connexion->prepare(
-				"INSERT INTO User(nom, prenom, login, eco_result, mail) VALUES(:lastname, :firstname, :login, 0, :email);
-				SELECT * FROM User WHERE login = :login"
+				"INSERT INTO User(nom, prenom, login, eco_result, mail) VALUES(:lastname, :firstname, :login, 0, :email);"
 			);
 			$query->execute(array(
 				"login" => $login,
@@ -55,9 +54,11 @@ class DB
 				"firstname" => $firstname,
 				"email" => $email,
 			));
+            
+            return $this->createOrGetUser($login);
 		}
-
-		return $query->fetch();
+        else
+		    return $query->fetch();
 	}
 
     public function getRideFromId($id){

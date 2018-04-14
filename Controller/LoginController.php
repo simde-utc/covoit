@@ -2,6 +2,7 @@
 
 namespace Controller;
 
+use App\DB;
 use App\Route;
 
 /**
@@ -50,7 +51,7 @@ class LoginController
 	/**
 	 * Se déconnecte du CAS de l'UTC
 	 */
-	public function logout(Request $request) {
+	public function logout($request) {
 		$_SESSION = [];
 
 		Route::redirectAway($this->casURL.'logout?service='.urlencode(Route::getUrl('/')));
