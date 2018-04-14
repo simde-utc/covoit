@@ -16,6 +16,9 @@ class Request
 		$parsedUrl = parse_url(preg_replace("#/+#", '/', str_replace('\\', '/', $_SERVER['REQUEST_URI'])));
 
 		$this->path = $this->getPathParts($parsedUrl['path']);
+		for ($i = 1; $i < count($this->getPathParts($_SERVER['PHP_SELF'])); $i++)
+			array_shift($this->path);
+
 		$this->queries = array_merge(
 			$parsedUrl['query'] ?? [],
 			json_decode(file_get_contents('php://input'), true) ?? []
@@ -24,9 +27,14 @@ class Request
     }
 
 	protected function getPathParts($path) {
-		return array_filter(explode('/', $path), function ($part) {
-			return !empty($part);
-		});
+		$path = explode('/', $path);
+
+		if (isset($path[0]) && empty($path[0]))
+			array_shift($path);
+		if (end($path) !== null && empty(end($path)))
+			unset($path[count($path) - 1]);
+
+		return $path;
 	}
 
 	public function isRouteCorresponding($verb, $path) {
