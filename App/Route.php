@@ -18,15 +18,15 @@ class Route
 		return static::$request;
 	}
 
-	public function __callStatic($method, $args){
-		if (count($args) !== 2 && count($args) !== 3)
+	public static function __callStatic($method, $args){
+		if (count($args) < 2)
 			return;
 
 		if (self::getRequest()->isRouteCorresponding($method, $args[0])) {
 			$load = explode('@', $args[1]);
 			$class = '\\Controller\\'.$load[0];
 			$method = $load[1];
-
+			
 			(new $class)->$method(self::$request);
 
 			exit;

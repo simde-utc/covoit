@@ -7,6 +7,8 @@ namespace App;
  */
 class Request
 {
+	protected $path;
+	protected $queries;
 	protected $verb;
 	protected $args;
 
@@ -14,7 +16,10 @@ class Request
 		$parsedUrl = parse_url(preg_replace("#/+#", '/', str_replace('\\', '/', $_SERVER['REQUEST_URI'])));
 
 		$this->path = $this->getPathParts($parsedUrl['path']);
-		$this->queries = $parsedUrl['query'] ?? null;
+		$this->queries = array_merge(
+			$parsedUrl['query'] ?? [],
+			json_decode(file_get_contents('php://input'), true) ?? []
+		);
 		$this->verb = strtoupper($_SERVER['REQUEST_METHOD']);
     }
 
@@ -48,7 +53,11 @@ class Request
 		return true;
 	}
 
-	public function getArg($name) {
-		return $this->args[$name] ?? null;
+	public function input($name, $default = null) {
+		return $this->queries[$name] ?? $default;
+	}
+
+	public function arg($name, $default = null) {
+		return $this->args[$name] ?? $default;
 	}
 }
