@@ -35,16 +35,16 @@ class LoginController
 		if (!isset($parsed->array['cas:serviceResponse']['cas:authenticationSuccess']))
 			Route::redirect('/login');
 
-		print_r($parsed->array['cas:serviceResponse']['cas:authenticationSuccess']); exit;
+		$user = (new DB)->createOrGetUser(
+			$parsed->array['cas:serviceResponse']['cas:authenticationSuccess']['cas:user'],
+			$parsed->array['cas:serviceResponse']['cas:authenticationSuccess']['cas:attributes']['cas:sn'],
+			$parsed->array['cas:serviceResponse']['cas:authenticationSuccess']['cas:attributes']['cas:givenName'],
+			$parsed->array['cas:serviceResponse']['cas:authenticationSuccess']['cas:attributes']['cas:mail']
+		);
 
-		return $this->updateOrCreate($request, 'login', $parsed->array['cas:serviceResponse']['cas:authenticationSuccess']['cas:user'], [
-			'firstname' => $parsed->array['cas:serviceResponse']['cas:authenticationSuccess']['cas:attributes']['cas:givenName'],
-			'lastname' 	=> $parsed->array['cas:serviceResponse']['cas:authenticationSuccess']['cas:attributes']['cas:sn'],
-			'email' 	=> $parsed->array['cas:serviceResponse']['cas:authenticationSuccess']['cas:attributes']['cas:mail'],
-		], [
-			'login' => $parsed->array['cas:serviceResponse']['cas:authenticationSuccess']['cas:user'],
-			'email' => $parsed->array['cas:serviceResponse']['cas:authenticationSuccess']['cas:attributes']['cas:mail'],
-		]);
+		$_SESSION = $user;
+
+		Route::redirect('/');
 	}
 
 	/**

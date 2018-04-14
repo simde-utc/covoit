@@ -6,7 +6,7 @@ use App\Route;
 
 class isLogged {
 	public function handle($request, $next) {
-		if (isset($_SESSION['id']))
+		if (!empty($_SESSION))
 			return $next($request);
 
 		Route::redirect('/login');

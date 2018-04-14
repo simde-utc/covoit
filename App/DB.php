@@ -1,5 +1,6 @@
 <?php
-namespace Controller;
+
+namespace App;
 
 use Model\Ride;
 
@@ -22,8 +23,10 @@ class DB
 
         try{
             $chaine="mysql:host=".$config['host'].";dbname=".$config['name'];
-            $this->connexion = new \PDO($chaine, $config['user'], $config['password']);
-            $this->connexion->setAttribute(\PDO::ATTR_ERRMODE,\PDO::ERRMODE_EXCEPTION);
+            $this->connexion = new \PDO($chaine, $config['user'], $config['password'], [
+				\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+				\PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC
+			]);
         }
         catch(PDOException $e){
             $exception=new Exception("Problème de connection à la base de donnée");
@@ -34,6 +37,28 @@ class DB
     public function deconnexion(){
         $this->connexion=null;
     }
+
+	public function createOrGetUser($login, $lastname = null, $firstname = null, $email = null) {
+		$query = $this->connexion->prepare("SELECT * FROM User WHERE login = :login");
+		$query->execute(array(
+			"login" => $login
+		));
+
+		if ($query->rowCount() === 0) {
+			$query = $this->connexion->prepare(
+				"INSERT INTO User(nom, prenom, login, eco_result, mail) VALUES(:lastname, :firstname, :login, 0, :email);
+				SELECT * FROM User WHERE login = :login"
+			);
+			$query->execute(array(
+				"login" => $login,
+				"lastname" => $lastname,
+				"firstname" => $firstname,
+				"email" => $email,
+			));
+		}
+
+		return $query->fetch();
+	}
 
     public function getRideFromId($id){
         try{
