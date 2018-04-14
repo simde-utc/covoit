@@ -22,8 +22,8 @@ class RideController
     }
 
     public function displayEditRideForm($ride_id){
-      $DAO->
-      new EditRideForm();
+      $rideObject = $DAO->getRideFromId(id);
+      new EditRideForm($rideObject);
     }
 
 }
