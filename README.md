@@ -1,2 +1,3 @@
 # covoit
-# contributeurs : Yanis Ouakrim, Samy Nastuzzi, Hippolite Vergnol et William Boffy
+## contributeurs : Yanis Ouakrim, Samy Nastuzzi, Hippolyte Vergnol et William Boffy
+
