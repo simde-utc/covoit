@@ -3,6 +3,8 @@
 namespace Controller;
 
 require_once("DAO.php");
+require_once("View/CarPage.php");
+require_once("View/AddCarFormPage.php");
 /**
  *
  */
@@ -18,14 +20,16 @@ class CarController
         $this->DAO = new DAO();
     }
 
-    public function displayCar($id){
-        $CarObject = $this->DAO->getCarFromId($id);
-        $rideObject = $DAO->getRideFromId(id);
+    public function displayCar($request){
+        $CarObject = $this->DAO->getCarFromId($request->arg('id'));
+        echo $CarObject["model"];
         new EditRideForm($rideObject);
     }
 
     public function displayAddCarForm(){
-        new AddCarForm();
+        new \AddCarFormPage();
+        //$carsObjet = $this->DAO->getCarsFromUserId($user_id);
+        //new \AddRideFormPage($carsObjet);
     }
 
     public function processAddCar($content){
