@@ -1,161 +1,126 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: yanis
- * Date: 14/04/2018
- * Time: 17:19
- */
 class Page
 {
-    private $head  = null ;
-    private $title = null ;
-    private $desc = null ;
-    private $body  = null ;
-    private $author  = null ;
+    private $content = null;
+    private $header = null;
+    private $footer = null;
+    
+    private $head  = null;
+    private $title = null;
+    private $description = null;
+    private $author  = null;
 
-    /**
-     * Constructeur
-     * @param string $title Titre de la page
-     */
     public function __construct($title="", $author="", $desc="") {
-        $this->setTitle($title) ;
-        $this->setDesc($desc);
+        $this->setTitle($title);
+        $this->setDescription($desc);
         $this->setAuthor($author);
+        $this->content = "";
+        $this->header = "";
+        $this->footer = "";
+    }
+    
+    /*
+     * Functions static
+     */
+    
+    public static function encode($txt){
+        //return htmlentities($txt, ENT_QUOTES|ENT_HTML5, "utf-8");
+        return $txt;
+    }
+    
+    /*
+     * Setters
+     */
+    
+    public function setHead($txt) {
+        $this->title = self::encode($txt);
+    }   
+    
+    public function setTitle($txt) {
+        $this->title = self::encode($txt);
     }
 
-    /* Tool functions */
-
-    /**
-     * Protéger les caractères spéciaux pouvant dégrader la page Web
-     * @param string $string La chaîne à protéger
-     *
-     * @return string La chaîne protégée
-     */
-    public function escapeString($string) {
-        return htmlentities($string, ENT_QUOTES|ENT_HTML5, "utf-8") ;
+    public function setDescription($txt) {
+        $this->description = self::encode($txt);
+    }
+    
+    public function setAuthor($txt) {
+        $this->author = self::encode($txt);
     }
 
-    /**
-     * Affecter le titre de la page
-     * @param string $title Le titre
-     */
-    public function setTitle($title) {
-        $this->title = $title ;
+    /*
+     * Appenders
+     */    
+    
+    public function appendToHead($txt) {
+        $this->head .= self::encode($txt)."\n";
     }
 
-    /**
-     * Affecter la description de la page
-     * @param string $desc La description
-     */
-    public function setDesc($desc) {
-        $this->desc = $desc ;
+    public function appendCss($txt){
+        $this->appendToHead("<style type='text/css'>".self::encode($txt)."</style>");
     }
 
-    /**
-     * Affecter l'auteur de la page
-     * @param string $author L'auteur
-     */
-    public function setAuthor($author) {
-        $this->author = $author ;
+    public function appendCssUrl($txt) {
+        $this->appendToHead("<link rel='stylesheet' type='text/css' href='".self::encode($txt)."'>");
     }
 
-    /**
-     * Ajouter un contenu dans head
-     * @param string $content Le contenu à ajouter
-     *
-     * @return void
-     */
-    public function appendToHead($content) {
-        $this->head .= $content."\n";
+    public function appendJs($txt) {
+        $this->appendToHead("<script type='text/javascript'>".self::encode($txt)."</script>");
     }
 
-    /**
-     * Ajouter un contenu CSS dans head
-     * @param string $css Le contenu CSS à ajouter
-     *
-     * @return void
-     */
-    public function appendCss($css){
-        $this->appendToHead(<<<CSS
-<style type='text/css'>
-    {$css}
-</style>
-CSS
-        );
+    public function appendJsUrl($txt) {
+        $this->appendToHead("<script type='text/javascript' src='".self::encode($txt)."'></script>");
     }
 
-    /**
-     * Ajouter l'URL d'un script CSS dans head
-     * @param string $url L'URL du script CSS
-     *
-     * @return void
-     */
-    public function appendCssUrl($url) {
-        $this->appendToHead("<link rel='stylesheet' type='text/css' href='{$url}'>");
+    public function appendContent($txt){
+        $this->content .= self::encode($txt);
     }
-
-    /**
-     * Ajouter un contenu JavaScript dans head
-     * @param string $js Le contenu JavaScript à ajouter
-     *
-     * @return void
-     */
-    public function appendJs($js) {
-        $this->appendToHead(<<<JS
-<script type='text/javascript'>
-{$js}
-</script>
-JS
-        );
+    
+    public function appendHeader($txt) {
+        $this->header .= self::encode($txt);
     }
-
-    /**
-     * Ajouter l'URL d'un script JavaScript dans head
-     * @param string $url L'URL du script JavaScript
-     *
-     * @return void
-     */
-    public function appendJsUrl($url) {
-        $this->appendToHead("<script type='text/javascript' src='$url'></script>");
+    
+    public function appendFooter($txt) {
+        $this->footer .= self::encode($txt);
     }
-
-    /**
-     * Ajouter un contenu dans body
-     * @param string $content Le contenu à ajouter
-     *
-     * @return void
+    
+    /*
+     * Others
      */
-    public function appendContent($content) {
-        $this->body .= $content ;
-    }
-
-    /**
-     * Produire la page Web complète
-     * @throws Exception si title n'est pas défini
-     *
-     * @return string
-     */
+    
     public function toHTML() {
-        if (is_null($this->title)) {
-            throw new Exception(__CLASS__ . ": title not set") ;
+        if(is_null($this->title) || is_null($this->description) || is_null($this->author)) {
+            throw new Exception(__CLASS__ . ": informations not set") ;
         }
         return <<<HTML
-            <!doctype html>
-            <html lang="fr">
-            <head>
-            <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-            <meta name="description" content="{$this->desc}">
-            <meta name="author" content="{$this->author}">
-            <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
-            <title>{$this->title}</title>
-            {$this->head}
-            </head>
-            <body>
-            {$this->body}
-            </body>
-            </html>
+<!doctype html>
+<html lang="fr">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="description" content="{$this->description}">
+        <meta name="author" content="{$this->author}">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+        <title>{$this->title}</title>
+        {$this->head}
+    </head>
+    <body>
+        <div id='header'>
+            {$this->header}
+        </div>
+        <div id='content'>
+            {$this->content}                
+        </div>
+        <div id='footer'>
+            {$this->footer}
+        </div>
+    </body>
+</html>
 HTML;
+    }
+    
+    public function display() {
+        echo $this->toHTML();
     }
 
 }
