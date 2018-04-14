@@ -38,6 +38,7 @@ class DAO
             $statement->execute(array(
                 "id" => $id
             ));
+            $result = $statement->fetch(\PDO::FETCH_ASSOC);
             return $result;
 
         }
@@ -81,6 +82,21 @@ class DAO
             throw new Exception("problème d'insertion dans la table Car");
         }
 
+    }
+
+    public function getCarsFromUserId($user_id){
+        try{
+            $statement = $this->connexion->prepare("SELECT * FROM Car WHERE owner = :id;");
+            $statement->execute(array(
+                "id" => $user_id
+            ));
+            $result=$statement->fetchAll();
+            return($result);
+        }
+        catch(PDOException $e){
+            $this->deconnexion();
+            throw new Exception("problème avec la table Car");
+        }
     }
 
 }

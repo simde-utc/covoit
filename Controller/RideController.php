@@ -1,6 +1,8 @@
 <?php
 namespace Controller;
 require_once("DAO.php");
+require_once("View/RidePage.php");
+require_once("View/AddRideFormPage.php");
 
 
 /**
@@ -18,12 +20,15 @@ class RideController
         $this->DAO = new DAO();
     }
 
-    public function displayRide($ride_id){
-        $rideObject = $this->DAO->getRideFromId($ride_id);
+    public function displayRide($request){
+        $rideObject = $this->DAO->getRideFromId($request->arg("id"));
+        new \RidePage($rideObject);
     }
-    public function displayAddRideForm($ride_id){
-        $rideObject = $this->DAO->getRideFromId($ride_id);
-        //new AddRideForm();
+    public function displayAddRideForm(){
+        $user_id=1;
+        #TODO
+        $carsObjet = $this->DAO->getCarsFromUserId($user_id);
+        new \AddRideFormPage($carsObjet);
     }
 
     public function displayEditRideForm($ride_id){
