@@ -1,6 +1,6 @@
 <?php
 
-require_once("Page.php");
+require_once("functions.php");
 
 class CarPage extends Page
 {
