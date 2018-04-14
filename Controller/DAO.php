@@ -12,11 +12,12 @@ class DAO
     /**
      *
      */
-
+    private $user_id;
     private $connexion;
 
 
     public function __construct(){
+        $this->user_id = 1;
         try{
             $chaine="mysql:host=localhost;dbname=mydb";
             $this->connexion = new \PDO($chaine,"root","root");
@@ -83,6 +84,23 @@ class DAO
         }
 
     }
+    public function addRide($inputs){
+        try{
+            $statement = $this->connexion->prepare("INSERT INTO Ride VALUES (NULL,:description,:nb_free_seats,:value_luggage,:car,:user_id);");
+            $statement->execute(array(
+                "description" => $inputs["description"],
+                "nb_free_seats" => $inputs["nb_free_seats"],
+                "value_luggage" => $inputs["value_luggage"],
+                "car" => $inputs["car"],
+                "user_id" => $this->user_id
+            ));
+        }
+        catch(PDOException $e){
+            $this->deconnexion();
+            throw new Exception("problème d'insertion dans la table Car");
+        }
+
+    }
 
     public function getCarsFromUserId($user_id){
         try{
@@ -98,5 +116,6 @@ class DAO
             throw new Exception("problème avec la table Car");
         }
     }
+
 
 }

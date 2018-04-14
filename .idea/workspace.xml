@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bd09728a-cb45-42d6-a94b-cb78c118c863" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/App/Request.php" afterPath="$PROJECT_DIR$/App/Request.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/App/routes/web.php" afterPath="$PROJECT_DIR$/App/routes/web.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Controller/DAO.php" afterPath="$PROJECT_DIR$/Controller/DAO.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Controller/RideController.php" afterPath="$PROJECT_DIR$/Controller/RideController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/View/AddRideFormPage.php" afterPath="$PROJECT_DIR$/View/AddRideFormPage.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -24,13 +21,14 @@
       <file leaf-file-name="DAO.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Controller/DAO.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="78" column="9" lean-forward="false" selection-start-line="78" selection-start-column="9" selection-end-line="78" selection-end-column="9" />
+            <state relative-caret-position="225">
+              <caret line="94" column="24" lean-forward="false" selection-start-line="94" selection-start-column="17" selection-end-line="94" selection-end-column="24" />
               <folding>
-                <marker date="1523733718703" expanded="true" signature="757:794" ph="SELECT * FRO... ride" />
-                <marker date="1523733718703" expanded="true" signature="1235:1270" ph="SELECT * FRO... Car" />
-                <marker date="1523733718703" expanded="true" signature="1705:1765" ph="INSERT INTO Car... " />
-                <marker date="1523733718703" expanded="true" signature="2388:2423" ph="SELECT * FRO... Car" />
+                <marker date="1523735654807" expanded="true" signature="806:843" ph="SELECT * FRO... ride" />
+                <marker date="1523735654807" expanded="true" signature="1284:1319" ph="SELECT * FRO... Car" />
+                <marker date="1523735654807" expanded="true" signature="1754:1814" ph="INSERT INTO Car... " />
+                <marker date="1523735654807" expanded="true" signature="2425:2512" ph="INSERT INTO Ride... " />
+                <marker date="1523735654807" expanded="true" signature="3119:3154" ph="SELECT * FRO... Car" />
               </folding>
             </state>
           </provider>
@@ -79,18 +77,18 @@
       <file leaf-file-name="RideController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Controller/RideController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="23" column="69" lean-forward="true" selection-start-line="23" selection-start-column="69" selection-end-line="23" selection-end-column="69" />
+            <state relative-caret-position="135">
+              <caret line="33" column="12" lean-forward="false" selection-start-line="33" selection-start-column="12" selection-end-line="33" selection-end-column="12" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AddRideFormPage.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="AddRideFormPage.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/View/AddRideFormPage.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="13" column="22" lean-forward="false" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="22" />
+            <state relative-caret-position="360">
+              <caret line="29" column="13" lean-forward="true" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -118,11 +116,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Request.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Request.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/App/Request.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="240">
-              <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+              <caret line="67" column="29" lean-forward="false" selection-start-line="67" selection-start-column="20" selection-end-line="67" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -149,11 +147,11 @@
         <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/App/Kernel.php" />
         <option value="$PROJECT_DIR$/View/RidePage.php" />
-        <option value="$PROJECT_DIR$/Controller/DAO.php" />
-        <option value="$PROJECT_DIR$/Controller/RideController.php" />
         <option value="$PROJECT_DIR$/App/routes/web.php" />
         <option value="$PROJECT_DIR$/View/AddRideFormPage.php" />
         <option value="$PROJECT_DIR$/App/Request.php" />
+        <option value="$PROJECT_DIR$/Controller/RideController.php" />
+        <option value="$PROJECT_DIR$/Controller/DAO.php" />
       </list>
     </option>
   </component>
@@ -165,8 +163,8 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="6" />
-    <option name="y" value="243" />
+    <option name="x" value="167" />
+    <option name="y" value="31" />
     <option name="width" value="1440" />
     <option name="height" value="838" />
   </component>
@@ -370,15 +368,15 @@
       <workItem from="1523722550521" duration="117000" />
       <workItem from="1523726268440" duration="13000" />
       <workItem from="1523726295655" duration="4663000" />
-      <workItem from="1523731164125" duration="3581000" />
+      <workItem from="1523731164125" duration="4471000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12139000" />
+    <option name="totallyTimeSpent" value="13029000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="6" y="243" width="1440" height="838" extended-state="0" />
+    <frame x="167" y="31" width="1440" height="838" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -442,10 +440,11 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1523733718703" expanded="true" signature="757:794" ph="SELECT * FRO... ride" />
-            <marker date="1523733718703" expanded="true" signature="1235:1270" ph="SELECT * FRO... Car" />
-            <marker date="1523733718703" expanded="true" signature="1705:1765" ph="INSERT INTO Car... " />
-            <marker date="1523733718703" expanded="true" signature="2388:2423" ph="SELECT * FRO... Car" />
+            <marker date="1523735654807" expanded="true" signature="806:843" ph="SELECT * FRO... ride" />
+            <marker date="1523735654807" expanded="true" signature="1284:1319" ph="SELECT * FRO... Car" />
+            <marker date="1523735654807" expanded="true" signature="1754:1814" ph="INSERT INTO Car... " />
+            <marker date="1523735654807" expanded="true" signature="2425:2512" ph="INSERT INTO Ride... " />
+            <marker date="1523735654807" expanded="true" signature="3119:3154" ph="SELECT * FRO... Car" />
           </folding>
         </state>
       </provider>
@@ -511,10 +510,11 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1523733718703" expanded="true" signature="757:794" ph="SELECT * FRO... ride" />
-            <marker date="1523733718703" expanded="true" signature="1235:1270" ph="SELECT * FRO... Car" />
-            <marker date="1523733718703" expanded="true" signature="1705:1765" ph="INSERT INTO Car... " />
-            <marker date="1523733718703" expanded="true" signature="2388:2423" ph="SELECT * FRO... Car" />
+            <marker date="1523735654807" expanded="true" signature="806:843" ph="SELECT * FRO... ride" />
+            <marker date="1523735654807" expanded="true" signature="1284:1319" ph="SELECT * FRO... Car" />
+            <marker date="1523735654807" expanded="true" signature="1754:1814" ph="INSERT INTO Car... " />
+            <marker date="1523735654807" expanded="true" signature="2425:2512" ph="INSERT INTO Ride... " />
+            <marker date="1523735654807" expanded="true" signature="3119:3154" ph="SELECT * FRO... Car" />
           </folding>
         </state>
       </provider>
@@ -720,19 +720,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Controller/DAO.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="78" column="9" lean-forward="false" selection-start-line="78" selection-start-column="9" selection-end-line="78" selection-end-column="9" />
-          <folding>
-            <marker date="1523733718703" expanded="true" signature="757:794" ph="SELECT * FRO... ride" />
-            <marker date="1523733718703" expanded="true" signature="1235:1270" ph="SELECT * FRO... Car" />
-            <marker date="1523733718703" expanded="true" signature="1705:1765" ph="INSERT INTO Car... " />
-            <marker date="1523733718703" expanded="true" signature="2388:2423" ph="SELECT * FRO... Car" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -757,6 +744,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/App/Request.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="67" column="29" lean-forward="false" selection-start-line="67" selection-start-column="20" selection-end-line="67" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Controller/DAO.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="94" column="24" lean-forward="false" selection-start-line="94" selection-start-column="17" selection-end-line="94" selection-end-column="24" />
+          <folding>
+            <marker date="1523735654807" expanded="true" signature="806:843" ph="SELECT * FRO... ride" />
+            <marker date="1523735654807" expanded="true" signature="1284:1319" ph="SELECT * FRO... Car" />
+            <marker date="1523735654807" expanded="true" signature="1754:1814" ph="INSERT INTO Car... " />
+            <marker date="1523735654807" expanded="true" signature="2425:2512" ph="INSERT INTO Ride... " />
+            <marker date="1523735654807" expanded="true" signature="3119:3154" ph="SELECT * FRO... Car" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/App/routes/web.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -767,24 +776,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Controller/RideController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="23" column="69" lean-forward="true" selection-start-line="23" selection-start-column="69" selection-end-line="23" selection-end-column="69" />
+        <state relative-caret-position="135">
+          <caret line="33" column="12" lean-forward="false" selection-start-line="33" selection-start-column="12" selection-end-line="33" selection-end-column="12" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/View/AddRideFormPage.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="13" column="22" lean-forward="false" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/App/Request.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+        <state relative-caret-position="360">
+          <caret line="29" column="13" lean-forward="true" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
           <folding />
         </state>
       </provider>
