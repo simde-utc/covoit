@@ -65,7 +65,15 @@ class Request
 		return $this->queries[$name] ?? $default;
 	}
 
+	public function allInputs() {
+		return $this->queries;
+	}
+
 	public function arg($name, $default = null) {
 		return $this->args[$name] ?? $default;
+	}
+
+	public function allArgs() {
+		return $this->args;
 	}
 }
