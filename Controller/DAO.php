@@ -20,7 +20,7 @@ class DAO
         $this->user_id = 1;
         try{
             $chaine="mysql:host=localhost;dbname=mydb";
-            $this->connexion = new \PDO($chaine,"root","root");
+            $this->connexion = new \PDO($chaine,"root","12test34");
             $this->connexion->setAttribute(\PDO::ATTR_ERRMODE,\PDO::ERRMODE_EXCEPTION);
         }
         catch(PDOException $e){
@@ -117,5 +117,23 @@ class DAO
         }
     }
 
+    public function UpdateCar($content){
+        try{
+            $statement = $this->connexion->prepare("UPDATE Car SET `model`=:model, `color`=:color, `nb_seats`=:nb_seats, `owner`=:owner) WHERE `idCar`=:idCar;");
+            $statement->execute(array(
+                "model" => $content["model"],
+                "color" => $content["color"],
+                "nb_seats" => $content["nb_seats"],
+                "owner" => $content["owner"],
+                "idCar" => $content["idCar"],
+            ));
+            //$result=$statement->fetch(\PDO::FETCH_ASSOC);
+            //return($result);
+        }
+        catch(PDOException $e){
+            $this->deconnexion();
+            throw new Exception("problème d'update dans la table Car");
+        }
 
+    }
 }
