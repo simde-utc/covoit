@@ -19,7 +19,7 @@ class DAO
     public function __construct(){
         try{
             $chaine="mysql:host=localhost;dbname=mydb";
-            $this->connexion = new \PDO($chaine,"root","12test34");
+            $this->connexion = new \PDO($chaine,"root","root");
             $this->connexion->setAttribute(\PDO::ATTR_ERRMODE,\PDO::ERRMODE_EXCEPTION);
         }
         catch(PDOException $e){
@@ -33,15 +33,12 @@ class DAO
     }
 
     public function getRideFromId($id){
-        echo $id;
         try{
             $statement = $this->connexion->prepare("SELECT * FROM ride WHERE idRide = :id;");
             $statement->execute(array(
                 "id" => $id
             ));
-            $result=$statement->fetch(\PDO::FETCH_ASSOC);
-            print_r($result);
-            new Ride();
+            return $result;
 
         }
         catch(PDOException $e){

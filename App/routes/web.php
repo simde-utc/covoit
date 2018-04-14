@@ -1,7 +1,5 @@
 <?php
-
-namespace App;
-
-Route::get('/', 'LoginController@index');
-Route::get('/b/', 'LoginController@store');
-Route::get('/login/{type}', 'LoginController@index');
+	\App\Route::get('/', 'LoginController@index');
+	\App\Route::get('/b/', 'LoginController@store');
+    \App\Route::get('/login/{type}', 'LoginController@index');
+    \App\Route::get('/ride/{id}', 'RideController@displayRide');

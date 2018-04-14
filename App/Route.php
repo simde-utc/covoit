@@ -26,9 +26,7 @@ class Route
 			$load = explode('@', $args[1]);
 			$class = '\\Controller\\'.$load[0];
 			$method = $load[1];
-
-			require_once 'Controller/'.$load[0].'.php';
-
+			
 			(new $class)->$method(self::$request);
 
 			exit;
