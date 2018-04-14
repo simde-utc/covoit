@@ -51,7 +51,9 @@ class LoginController
 	 * Se déconnecte du CAS de l'UTC
 	 */
 	public function logout(Request $request) {
-		Route::redirectAway($this->casURL.'logout?service='.urlencode(Route::getUrl('/login/process')));
+		$_SESSION = [];
+
+		Route::redirectAway($this->casURL.'logout?service='.urlencode(Route::getUrl('/')));
 	}
 }
 
