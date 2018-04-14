@@ -1,9 +1,16 @@
 <?php
-require_once("View/CarPage.php");
-	new \Controller\RideController()->displayAddRide()
-	echo $_SERVER['REQUEST_URI'];
+function __autoload($className){
+    $address = array('App/', 'Controller/', 'Model/', 'Ressources/', 'View/');
+    foreach($address as $a){
+        var_dump($className);
+        if(file_exists($a.$className.'.php')) {
+            require_once($a.$className.'.php');
+            return true;
+        }    
+    }
+    return false;
+}
 
-	
 $p = new CarPage("mon_titre", "mon_auteur", "ma_description");
 $p->appendHeader("Header");
 $p->appendContent("Content");
