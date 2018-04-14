@@ -30,3 +30,7 @@ function config($name) {
 	else
 		return null;
 }
+
+function env($name, $default = null) {
+	return $GLOBALS[$name] ?? $default;
+}

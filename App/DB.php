@@ -7,7 +7,7 @@ require_once "Model/Ride.php";
 /**
  *
  */
-class DAO
+class DB
 {
     /**
      *
@@ -18,9 +18,11 @@ class DAO
 
     public function __construct(){
         $this->user_id = 1;
+		$config = config('db');
+
         try{
-            $chaine="mysql:host=localhost;dbname=mydb";
-            $this->connexion = new \PDO($chaine,"root","12test34");
+            $chaine="mysql:host=".$config['host'].";dbname=".$config['name'];
+            $this->connexion = new \PDO($chaine, $config['user'], $config['password']);
             $this->connexion->setAttribute(\PDO::ATTR_ERRMODE,\PDO::ERRMODE_EXCEPTION);
         }
         catch(PDOException $e){

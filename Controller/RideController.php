@@ -1,6 +1,6 @@
 <?php
 namespace Controller;
-require_once("DAO.php");
+require_once("App/DB.php");
 require_once("View/RidePage.php");
 require_once("View/AddRideFormPage.php");
 
