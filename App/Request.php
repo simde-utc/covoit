@@ -14,7 +14,7 @@ class Request
 		$parsedUrl = parse_url(preg_replace("#/+#", '/', str_replace('\\', '/', $_SERVER['REQUEST_URI'])));
 
 		$this->path = $this->getPathParts($parsedUrl['path']);
-		$this->queries = $parsedUrl['query'];
+		$this->queries = $parsedUrl['query'] ?? null;
 		$this->verb = strtoupper($_SERVER['REQUEST_METHOD']);
     }
 
@@ -33,11 +33,22 @@ class Request
 		if (count($path) !== count($this->path))
 			return false;
 
+		$args = [];
 		foreach ($path as $key => $part) {
-			if ($part !== $this->path[$key] && strpos($path[$key], '{') === FALSE)
-				return false;
+			if ($part !== $this->path[$key]) {
+				if (preg_match("/^{(\w*)}$/", $part, $matches))
+					$args[$matches[1]] = $this->path[$key];
+				else
+					return false;
+			}
 		}
 
+		$this->args = $args;
+
 		return true;
+	}
+
+	public function getArg($name) {
+		return $this->args[$name] ?? null;
 	}
 }

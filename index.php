@@ -6,6 +6,6 @@
 	ini_set('display_errors', 1);
 	ini_set('display_startup_errors', 1);
 
-	\App\Route::get('/', '');
+	\App\Route::get('/', 'LoginController@index');
 	\App\Route::get('/b/', 'LoginController@store');
-	\App\Route::get('/{a}/', 'LoginController@index');
+	\App\Route::get('/login/{type}', 'LoginController@index');

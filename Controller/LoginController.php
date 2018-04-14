@@ -14,7 +14,7 @@ class LoginController
     {
     }
 
-	public function index() {
-		echo 'J\'ai trouvé le LoginController !!';
+	public function index($request) {
+		echo 'J\'ai trouvé le LoginController !! du type '.$request->getArg('type');
 	}
 }
