@@ -19,7 +19,7 @@ class DAO
     public function __construct(){
         try{
             $chaine="mysql:host=localhost;dbname=mydb";
-            $this->connexion = new \PDO($chaine,"root","root");
+            $this->connexion = new \PDO($chaine,"root","12test34");
             $this->connexion->setAttribute(\PDO::ATTR_ERRMODE,\PDO::ERRMODE_EXCEPTION);
         }
         catch(PDOException $e){
@@ -44,6 +44,22 @@ class DAO
         catch(PDOException $e){
             $this->deconnexion();
             throw new Exception("problème avec la table partie");
+        }
+
+    }
+
+    public function getCarFromId($id){
+        try{
+            $statement = $this->connexion->prepare("SELECT * FROM Car WHERE idCar = :id;");
+            $statement->execute(array(
+                "id" => $id
+            ));
+            $result=$statement->fetch(\PDO::FETCH_ASSOC);
+            return($result);
+        }
+        catch(PDOException $e){
+            $this->deconnexion();
+            throw new Exception("problème avec la table Car");
         }
 
     }
