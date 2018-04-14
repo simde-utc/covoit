@@ -20,7 +20,7 @@ class DAO
         $this->user_id = 1;
         try{
             $chaine="mysql:host=localhost;dbname=mydb";
-            $this->connexion = new \PDO($chaine,"root","12test34");
+            $this->connexion = new \PDO($chaine,"root","root");
             $this->connexion->setAttribute(\PDO::ATTR_ERRMODE,\PDO::ERRMODE_EXCEPTION);
         }
         catch(PDOException $e){
@@ -86,13 +86,37 @@ class DAO
     }
     public function addRide($inputs){
         try{
-            $statement = $this->connexion->prepare("INSERT INTO Ride VALUES (NULL,:description,:nb_free_seats,:value_luggage,:car,:user_id);");
+            $id = uniqid();
+            $statement = $this->connexion->prepare("INSERT INTO Ride VALUES (null,:description,:nb_free_seats,:value_luggage,:car,:user_id, NOW());");
             $statement->execute(array(
                 "description" => $inputs["description"],
                 "nb_free_seats" => $inputs["nb_free_seats"],
                 "value_luggage" => $inputs["value_luggage"],
                 "car" => $inputs["car"],
                 "user_id" => $this->user_id
+            ));
+
+            $dep_id = uniqid();
+            $statement = $this->connexion->prepare("INSERT INTO Place VALUES (:id,:text_adress,:description,POINT(:x, :y));");
+            $statement->execute(array(
+                "id" => $dep_id,
+                "text_adress" => $inputs["departure"],
+                "description" => "",
+                "x" => 0,
+                "y" => 0
+            ));
+
+            $statement = $this->connexion->prepare("INSERT INTO Step VALUES (null,:distance, :departure_time, :eco_result,:duration,:description,:departure, :arrival, :ride, :price);");
+            $statement->execute(array(
+                "distance" => 0,
+                "departure_time" =>$inputs["departure_time"],
+                "eco_result" => 0,
+                "duration" => 0,
+                "description" => "",
+                "departure" =>$dep_id,
+                "arrival" => $dep_id,
+                "ride" => 5,
+                "price" => 0
             ));
         }
         catch(PDOException $e){
