@@ -48,13 +48,25 @@ class Route
 		}
 	}
 
-	public static function redirect($redirect) {
+	public static function getUrl($url) {
 		$relative = self::getRequest()->getPathParts($_SERVER['PHP_SELF']);
 		array_pop($relative);
 
-		header('Location: /'.implode('/', array_merge(
+		return (isset($_SERVER['HTTPS']) ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST'].'/'.implode('/', array_merge(
 			$relative,
-			self::getRequest()->getPathParts($redirect)
-		)));
+			self::getRequest()->getPathParts($url)
+		));
+	}
+
+	public static function redirect($redirect) {
+		header('Location: '.self::getUrl($redirect));
+
+		exit;
+	}
+
+	public static function redirectAway($redirect) {
+		header('Location: '.$redirect);
+
+		exit;
 	}
 }

@@ -20,8 +20,8 @@ class Request
 			array_shift($this->path);
 
 		$this->queries = array_merge(
-			$parsedUrl['query'] ?? [],
-			json_decode(file_get_contents('php://input'), true) ?? $_POST
+			$_GET ?? [],
+			json_decode(file_get_contents('php://input'), true) ?? $_POST ?? []
 		);
 		$this->verb = strtoupper($_SERVER['REQUEST_METHOD']);
     }

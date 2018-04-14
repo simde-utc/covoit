@@ -2,9 +2,12 @@
 
 namespace App;
 
-Route::get('/', 'ControllerBidon@index', 'isLogged');
-Route::get('/b/', 'LoginController@store');
-Route::get('/login/{type}', 'LoginController@index');
-Route::get('/ride/{id}', 'RideController@displayRide');
-Route::get('/addride', 'RideController@displayAddRideForm');
-Route::post('/submitRide', 'RideController@processAddRide');
+Route::get('/login', 'LoginController@index');
+Route::get('/login/process', 'LoginController@login');
+Route::get('/logout', 'LoginController@logout', 'isLogged');
+Route::get('/ride/{id}', 'RideController@displayRide', 'isLogged');
+Route::get('/addride', 'RideController@displayAddRideForm', 'isLogged');
+Route::post('/submitRide', 'RideController@processAddRide', 'isLogged');
+
+echo 'PAS DE PAGE TROUVEE !!';
+exit;
