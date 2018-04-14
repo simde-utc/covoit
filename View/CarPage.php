@@ -12,4 +12,6 @@ class CarPage
         echo $CarObject["color"];
 
     }
+    
+    //rédéfinir les generate()
 }
