@@ -24,12 +24,11 @@ class CarController
     }
 
     public function displayCar($request){
-        $c = new \CarPage($this->DB->getCarFromId($request->arg('id')), "mon_titre", "mon_auteur", "ma_description");
-        $c->display();
+        (new \CarPage($this->DB->getCarFromId($request->arg('id')), "mon_titre", "mon_auteur", "ma_description"))->display();
     }
 
     public function displayAddCarForm(){
-        new \AddCarFormPage();
+        (new \AddCarFormPage())->display();
     }
 
     public function processAddCar($request){
