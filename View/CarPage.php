@@ -1,17 +1,20 @@
 <?php
 
-//class CarPage extends Page
-class CarPage
+require_once("Page.php");
+
+class CarPage extends Page
 {
-    //public function __construct($title="", $author="", $desc=""){
-    public function __construct($CarObject){
-
-        //parent::__construct("","","");
-
-        echo $CarObject["model"];
-        echo $CarObject["color"];
-
+    private $car = null;
+    public function __construct($CarObject, $title="", $author="", $desc=""){
+        parent::__construct($title, $author, $desc);
+        $this->car = $CarObject;
     }
+ 
+    public function generateContent(){
+        $this->content = <<<HTML
+        <p>Ma voiture : modèle({$this->car["model"]}), couleur({$this->car["color"]}), sièges({$this->car["nb_seats"]}) et {$this->car["owner"]}.</p>
+HTML
+;
+    }   
     
-    //rédéfinir les generate()
 }

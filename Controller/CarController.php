@@ -24,8 +24,8 @@ class CarController
     }
 
     public function displayCar($request){
-        $CarObject = $this->DB->getCarFromId($request->arg('id'));
-        new \CarPage($CarObject);
+        $c = new \CarPage($this->DB->getCarFromId($request->arg('id')), "mon_titre", "mon_auteur", "ma_description");
+        $c->display();
     }
 
     public function displayAddCarForm(){
