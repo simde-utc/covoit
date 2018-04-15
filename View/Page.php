@@ -1,5 +1,8 @@
 <?php
 
+require_once("App/Route.php");
+use App\Route;
+
 class Page
 {
     protected $content = null;
@@ -63,7 +66,7 @@ class Page
     }
 
     public function appendCssUrl($txt) {
-        $this->appendToHead("<link rel='stylesheet' type='text/css' href='".self::encode($txt)."'>");
+        $this->appendToHead("<link rel='stylesheet' type='text/css' href='".Route::getUrl(self::encode($txt))."'>");
     }
 
     public function appendJs($txt) {
@@ -141,6 +144,11 @@ HTML
      * Others
      */
     
+    public function toJSON(){
+        header('Content-Type: application/json');
+        echo json_encode($this, TRUE);
+    }
+    
     public function toHTML() {
         if(is_null($this->title) || is_null($this->description) || is_null($this->author)) {
             throw new Exception(__CLASS__ . ": informations not set") ;
@@ -158,6 +166,7 @@ HTML
         <meta name="description" content="{$this->description}">
         <meta name="author" content="{$this->author}">
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+        <title>{$this->title}</title>
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -169,7 +178,6 @@ HTML
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         
-        <title>{$this->title}</title>
         {$this->head}
     </head>
     <body>    
