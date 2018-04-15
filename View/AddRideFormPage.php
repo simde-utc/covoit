@@ -19,22 +19,22 @@ class AddRideFormPage
                 <option value="2">Bagages moyens</option>
                 <option value="1">Petits bagages</option>
                 <option value="0">Pas de bagages</option>
-            </select>
+            </select></br>
 
-            Depart :
+            Depart :</br>
             <input type="datetime-local" name="departure_time"/>
             <input type="text" name="departure" placeholder="departure adress"> </br>
             <button type="button" onclick="addStep();">Ajouter une étape</button>
             <div id="step_contener">
 
-            </div>
-            Arrivée :
+            </div></br>
+            Arrivée :</br>
             <input type="text" name="arrival" placeholder="departure adress">
             <select name="car">
                 <?php foreach ($carsObjet as $car){
                     echo '<option value="'.$car['idCar'].'">'.$car['model'].' '.$car['color'].'</option>';
                 }?>
-            </select>
+            </select></br>
             <input type="submit" />
             <input type="hidden" id="nb_step" name="nb_step" value="0"/>
             <script type="application/javascript">
