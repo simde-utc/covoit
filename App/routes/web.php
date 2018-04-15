@@ -23,6 +23,5 @@ Route::get('/rides/{id}', 'RideController@displayRide', 'isLogged');
 // Home
 Route::get('/', 'HomeController@displayHome', 'isLogged');
 
-
 echo 'PAS DE PAGE TROUVEE !!';
 exit;

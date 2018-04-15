@@ -8,44 +8,45 @@ require_once("View/AddCarFormPage.php");
 require_once("View/EditCarFormPage.php");
 require_once("View/DeleteCarFormPage.php");
 
-use App\DB;
+use Model\Car;
 
 /**
  *
  */
 class CarController
 {
-    /**
-     *
-     */
-    public $DB;
 
-    public function __construct()
-    {
-        $this->DB = new DB();
-    }
+	public function displayCars($request) {
+		new \DeleteCarFormPage(Car::getFromUser());
 
-	public function displayCars($request){
-	  (new \DeleteCarFormPage($this->DB->getCarsFromUserId($_SESSION["idUser"])))->display();
 	}
 
     // Show a Car
-    public function displayCar($request){
-        (new \CarPage($this->DB->getCarFromId($request->arg('id')), "mon_titre", "mon_auteur", "ma_description"))->display();
+    public function displayCar($request) {
+        (new \CarPage(Car::find($request->arg('id')), "mon_titre", "mon_auteur", "ma_description"))->display();
     }
 
     // Add a Car
-    public function displayAddCarForm(){
+    public function displayAddCarForm() {
         (new \AddCarFormPage())->display();
     }
 
-    public function processAddCar($request){
-      $this->DB->addCar($request);
+    public function processAddCar($request) {
+    	Car::create(
+			$request->input('model'),
+			$request->input('color'),
+			$request->input('nb_seats')
+		);
     }
 
 
-    public function displayEditCarForm($request){
-        (new \EditCarFormPage($this->DB->getCarFromId($request->arg('id')), "mon_titre", "mon_auteur", "ma_description"))->display();
+    public function displayEditCarForm($request) {
+		$car = Car::find($request->arg('id'));
+
+		if ($cars->user_id !== $_SESSION['id'])
+			throw new \Exception('Impossible de modifier une voiture qui ne t\'appartient pas !');
+
+        (new \EditCarFormPage($car, "mon_titre", "mon_auteur", "ma_description"))->display();
     }
 
     public function processEditCarForm(){
@@ -57,8 +58,7 @@ class CarController
     }
 
     public function processDeleteCar($request){
-        $result = $this->DB->DeleteCar($request->input('idCar'));
-        echo $result;
+        echo Car::delete($request->input('id'));
     }
 
 }
