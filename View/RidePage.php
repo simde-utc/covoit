@@ -11,9 +11,8 @@ class RidePage extends Page
     }
  
     public function generateContent(){
-        var_dump($this->ride);
         $this->content = <<<HTML
-        <p>Mon ride : </p>
+        <p>Mon ride : description({$this->ride["description"]}), sièges disponibles({$this->ride["nb_free_seats"]}), bagages({$this->ride["value_luggage"]}), voiture({$this->ride["car"]}), conducteur({$this->ride["user_id"]}), date({$this->ride["date"]})</p>
 HTML
 ;
     }   
