@@ -18,7 +18,8 @@ class DB extends \PDO
 
 	public function request($request, $params, $onlyOne = false) {
 		$query = $this->prepare($request);
-		$query->execute($params);
+
+		$status = $query->execute($params);
 
 		if ($query->rowCount() !== 0) {
 			try {
@@ -29,29 +30,6 @@ class DB extends \PDO
 			}
 		}
 		return null;
-	}
-
-	public function createOrGetUser($login, $lastname = null, $firstname = null, $email = null) {
-		$query = $this->connexion->prepare("SELECT * FROM User WHERE login = :login");
-		$query->execute(array(
-			"login" => $login
-		));
-
-		if ($query->rowCount() === 0) {
-			$query = $this->connexion->prepare(
-				"INSERT INTO User(nom, prenom, login, eco_result, mail) VALUES(:lastname, :firstname, :login, 0, :email);"
-			);
-			$query->execute(array(
-				"login" => $login,
-				"lastname" => $lastname,
-				"firstname" => $firstname,
-				"email" => $email,
-			));
-
-            return $this->createOrGetUser($login);
-		}
-        else
-		    return $query->fetch();
 	}
 
     public function getRideFromId($id){
@@ -67,41 +45,6 @@ class DB extends \PDO
         catch(PDOException $e){
             $this->deconnexion();
             throw new Exception("problème avec la table partie");
-        }
-
-    }
-
-    public function getCarFromId($id){
-        try{
-            $statement = $this->connexion->prepare("SELECT * FROM Car WHERE idCar = :id;");
-            $statement->execute(array(
-                "id" => $id
-            ));
-            $result=$statement->fetch(\PDO::FETCH_ASSOC);
-            return($result);
-        }
-        catch(PDOException $e){
-            $this->deconnexion();
-            throw new Exception("problème avec la table Car");
-        }
-
-    }
-
-    public function addCar($request){
-        try{
-            $statement = $this->connexion->prepare("INSERT INTO Car VALUES (NULL,:model,:color,:nb_seats,:owner);");
-            $statement->execute(array(
-                "model" => $request->input('model'),
-                "color" => $request->input('color'),
-                "nb_seats" => $request->input('nb_seats'),
-                "owner" => $_SESSION["idUser"],
-            ));
-            //$result=$statement->fetch(\PDO::FETCH_ASSOC);
-            //return($result);
-        }
-        catch(PDOException $e){
-            $this->deconnexion();
-            throw new Exception("problème d'insertion dans la table Car");
         }
 
     }
