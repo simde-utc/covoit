@@ -5,6 +5,7 @@ namespace Controller;
 require_once("View/CarPage.php");
 require_once("View/Page.php");
 require_once("View/AddCarFormPage.php");
+require_once("View/EditCarFormPage.php");
 
 use App\DB;
 
@@ -37,9 +38,8 @@ class CarController
         $result = $this->DB->addCar($request->input('type'));
     }
 
-    public function displayEditCarForm($car_id){
-      $CarObject = $this->DB->getCarFromId($car_id);
-      new EditCarForm($CarObject);
+    public function displayEditCarForm($request){
+        (new \EditCarFormPage($this->DB->getCarFromId($request->arg('id')), "mon_titre", "mon_auteur", "ma_description"))->display();
     }
 
 
