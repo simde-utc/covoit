@@ -19,7 +19,7 @@ class RideController
     }
 
     public function displayAddRideForm(){
-        new \AddRideFormPage(Car::getFromUser());
+        (new \AddRideFormPage(Car::getFromUser()))->display();
     }
 
     public function displayEditRideForm($ride_id){

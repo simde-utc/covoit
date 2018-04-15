@@ -20,8 +20,7 @@ class CarController
 {
 
 	public function displayCars($request) {
-		new \DeleteCarFormPage(Car::getFromUser());
-
+		(new \DeleteCarFormPage(Car::getFromUser()))->display();
 	}
 
     // Show a Car
@@ -61,7 +60,7 @@ class CarController
     }
 
     public function processDeleteCar($request){
-        echo Car::delete($request->input('id'));
+        Car::delete($request->input('id'));
     }
 
 }
