@@ -18,7 +18,7 @@ class DB
 
 
     public function __construct(){
-        $this->user_id = 1;
+        //$this->user_id = 1;
 		$config = config('db');
 
         try{
@@ -114,14 +114,51 @@ class DB
     }
     public function addRide($inputs){
         try{
-            $statement = $this->connexion->prepare("INSERT INTO Ride VALUES (NULL,:description,:nb_free_seats,:value_luggage,:car,:user_id);");
+            $id = uniqid();
+            $statement = $this->connexion->prepare("INSERT INTO Ride VALUES (:id,:description,:nb_free_seats,:value_luggage,:car,:user_id, NOW());");
             $statement->execute(array(
+                "id" => $id,
                 "description" => $inputs["description"],
                 "nb_free_seats" => $inputs["nb_free_seats"],
                 "value_luggage" => $inputs["value_luggage"],
                 "car" => $inputs["car"],
-                "user_id" => $this->user_id
+                "user_id" => $_SESSION["idUser"]
             ));
+
+            $dep_id = uniqid();
+            $statement = $this->connexion->prepare("INSERT INTO Place VALUES (:id,:text_address,:description,:lat,:lng);");
+            $statement->execute(array(
+                "id" => $dep_id,
+                "text_address" => $inputs["departure"],
+                "description" => "",
+                "lat" => $inputs["departure_lat"],
+                "lng" => $inputs["departure_lng"]
+            ));
+
+            $arr_id = uniqid();
+            $statement = $this->connexion->prepare("INSERT INTO Place VALUES (:id,:text_address,:description,:lat,:lng);");
+            $statement->execute(array(
+                "id" => $arr_id,
+                "text_address" => $inputs["arrival"],
+                "description" => "",
+                "lat" => $inputs["arrival_lat"],
+                "lng" => $inputs["arrival_lng"]
+            ));
+
+            $statement = $this->connexion->prepare("INSERT INTO Step VALUES (UUID(),:distance,:departure_time,:eco_result,:duration, :description, :departure, :arrival, :ride,:price);");
+            $statement->execute(array(
+                "distance" => 0,
+                "departure_time" => 0,
+                "eco_result" => 0,
+                "duration" => 0,
+                "description" => "",
+                "departure" => $dep_id,
+                "arrival" => $arr_id,
+                "ride" => $id,
+                "price" => 0,
+
+            ));
+
         }
         catch(PDOException $e){
             $this->deconnexion();
