@@ -2,8 +2,10 @@
 
 namespace Controller;
 
-use App\DB;
+require_once 'Model/User.php';
+
 use App\Route;
+use Model\User;
 
 /**
  *
@@ -36,12 +38,14 @@ class LoginController
 		if (!isset($parsed->array['cas:serviceResponse']['cas:authenticationSuccess']))
 			Route::redirect('/login');
 
-		$user = (new DB)->createOrGetUser(
+		$user = User::findOrCreate(
 			$parsed->array['cas:serviceResponse']['cas:authenticationSuccess']['cas:user'],
+			$parsed->array['cas:serviceResponse']['cas:authenticationSuccess']['cas:attributes']['cas:mail'],
 			$parsed->array['cas:serviceResponse']['cas:authenticationSuccess']['cas:attributes']['cas:sn'],
-			$parsed->array['cas:serviceResponse']['cas:authenticationSuccess']['cas:attributes']['cas:givenName'],
-			$parsed->array['cas:serviceResponse']['cas:authenticationSuccess']['cas:attributes']['cas:mail']
+			$parsed->array['cas:serviceResponse']['cas:authenticationSuccess']['cas:attributes']['cas:givenName']
 		);
+
+		print_r($user);
 
 		$_SESSION = $user;
 

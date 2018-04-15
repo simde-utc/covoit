@@ -2,45 +2,36 @@
 
 namespace Model;
 
-/**
- *
- */
-class User
-{
-    /**
-     *
-     */
-    public function __construct()
-    {
-    }
+use App\DB;
 
-    /**
-     * @var void
-     */
-    public $idUser;
+class User extends Model {
+	public static function findByLogin($login) {
+		return static::getDB()->request(
+			'SELECT * FROM '.static::getTableName().' WHERE login = :login',
+			[
+				'login' => $login
+			],
+			true
+		);
+	}
 
-    /**
-     * @var string
-     */
-    public $nom;
+	public static function findOrCreate($login, $email, $lastname, $firstname) {
+		$user = static::findByLogin($login);
 
-    /**
-     * @var string
-     */
-    public $prenom;
+		if (empty($user)) {
+			static::getDB()->request(
+				'INSERT INTO '.static::getTableName().'(email, login, lastname, firstname) VALUES(:email, :login, :lastname, :firstname)',
+				[
+					'email' => $email,
+					'login' => $login,
+					'lastname' => $lastname,
+					'firstname' => $firstname,
+				]
+			);
 
-    /**
-     * @var string
-     */
-    public $login;
+			$user = static::findByLogin($login);
+		}
 
-    /**
-     * @var float
-     */
-    public $eco_result;
-
-    /**
-     * @var string
-     */
-    public $mail;
+		return $user;
+	}
 }
