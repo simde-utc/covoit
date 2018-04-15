@@ -13,7 +13,8 @@ class Page
     protected $head  = null;
     protected $title = null;
     protected $description = null;
-    protected $author  = null;
+    protected $author = null;
+    protected $script = null;
 
     public function __construct($title="", $author="", $desc="") {
         $this->setTitle($title);
@@ -22,6 +23,7 @@ class Page
         $this->content = "";
         $this->header = "";
         $this->footer = "";
+        $this->script = "";
     }
 
     /*
@@ -59,6 +61,10 @@ class Page
 
     public function appendToHead($txt) {
         $this->head .= self::encode($txt)."\n";
+    }    
+
+    public function appendToScript($txt) {
+        $this->script .= self::encode($txt)."\n";
     }
 
     public function appendCss($txt){
@@ -70,7 +76,7 @@ class Page
     }
 
     public function appendJs($txt) {
-        $this->appendToHead("<script type='text/javascript'>".self::encode($txt)."</script>");
+        $this->appendToScript("<script type='text/javascript'>".self::encode($txt)."</script>");
     }
 
     public function appendJsUrl($txt) {
@@ -195,6 +201,7 @@ HTML
             {$this->modals}
         </div>
     </body>
+    {$this->script}
 </html>
 HTML;
     }
