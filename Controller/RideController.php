@@ -52,8 +52,31 @@ class RideController
         return $r['results'][0]['formatted_address'];
     }
     public function processAddRide($request){
-        var_dump($request->allInputs());
         $ride_info = $request->allInputs();
+        $ride_info["steps"] = array();
+        array_push($ride_info["steps"],array(
+            "address"=>$this->getformattedaddress($ride_info["departure"]),
+            "lat" => $this->getCoord($ride_info['departure'])['lat'],
+            "lng" => $this->getCoord($ride_info['departure'])['lng'])
+        );
+        for($i = 0; $i<$ride_info["nb_step"];$i++){
+            $address = $this->getformattedaddress($ride_info["step".$i]);
+            $lat = $this->getCoord($ride_info["step".$i])["lat"];
+            $lng = $this->getCoord($ride_info["step".$i])["lng"];
+            array_push($ride_info["steps"], array(
+                "address"=>$address,
+                "lat" => $lat,
+                "lng" => $lng));
+        }
+
+        array_push($ride_info["steps"],array(
+            "address"=>$this->getformattedaddress($ride_info["arrival"]),
+            "lat" => $this->getCoord($ride_info['arrival'])['lat'],
+            "lng" => $this->getCoord($ride_info['arrival'])['lng'])
+        );
+        echo "<pre>";
+        print_r($ride_info);
+        echo "</pre>";
         $ride_info["departure"] = $this->getformattedaddress($ride_info["departure"]);
         $ride_info["arrival"] = $this->getformattedaddress($ride_info["arrival"]);
         $ride_info["departure_lat"] = $this->getCoord($ride_info['departure'])['lat'];
