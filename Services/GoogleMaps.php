@@ -26,4 +26,10 @@ class GoogleMaps {
 			'destinations' => $destinations,
 		]);
 	}
+
+	public function searchByText($text) {
+		return $this->call('place/textsearch/json', [
+			'query' => $text
+		]);
+	}
 }

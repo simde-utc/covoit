@@ -6,7 +6,7 @@ class Page
     protected $header = null;
     protected $footer = null;
     protected $modals = null;
-    
+
     protected $head  = null;
     protected $title = null;
     protected $description = null;
@@ -20,24 +20,24 @@ class Page
         $this->header = "";
         $this->footer = "";
     }
-    
+
     /*
      * Functions static
      */
-    
+
     public static function encode($txt){
         //return htmlentities($txt, ENT_QUOTES|ENT_HTML5, "utf-8");
         return $txt;
     }
-    
+
     /*
      * Setters
      */
-    
+
     public function setHead($txt) {
         $this->title = self::encode($txt);
-    }   
-    
+    }
+
     public function setTitle($txt) {
         $this->title = self::encode($txt);
     }
@@ -45,15 +45,15 @@ class Page
     public function setDescription($txt) {
         $this->description = self::encode($txt);
     }
-    
+
     public function setAuthor($txt) {
         $this->author = self::encode($txt);
     }
 
     /*
      * Appenders
-     */    
-    
+     */
+
     public function appendToHead($txt) {
         $this->head .= self::encode($txt)."\n";
     }
@@ -80,7 +80,7 @@ class Page
 HTML
 ;
     }
-    
+
     public function generateHeader(){
         $this->header = <<<HTML
         <!-- Static navbar -->
@@ -105,16 +105,16 @@ HTML
 HTML
 ;
     }
-    
+
     public function generateFooter(){
         $this->footer = <<<HTML
         <footer class="container-fluid text-center">
             <p>mon_footer</p>
-        </footer> 
+        </footer>
 HTML
 ;
     }
-    
+
     public function generateModals(){
         $this->modals = <<<HTML
         <div id="infoModal" class="modal fade" role="dialog">
@@ -136,11 +136,11 @@ HTML
 HTML
 ;
     }
-    
+
     /*
      * Others
      */
-    
+
     public function toHTML() {
         if(is_null($this->title) || is_null($this->description) || is_null($this->author)) {
             throw new Exception(__CLASS__ . ": informations not set") ;
@@ -149,7 +149,7 @@ HTML
         $this->generateHeader();
         $this->generateFooter();
         $this->generateModals();
-        $this->appendCssUrl("Ressources/css/style.css");        
+        $this->appendCssUrl("Ressources/css/style.css");
         return <<<HTML
 <!doctype html>
 <html lang="fr">
@@ -168,16 +168,16 @@ HTML
 
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-        
+
         <title>{$this->title}</title>
         {$this->head}
     </head>
-    <body>    
+    <body>
         <div id='header'>
             {$this->header}
         </div>
         <div id='content'>
-            {$this->content}        
+            {$this->content}
         </div>
         <div id='footer'>
             {$this->footer}
@@ -189,7 +189,7 @@ HTML
 </html>
 HTML;
     }
-    
+
     public function display() {
         echo $this->toHTML();
     }
