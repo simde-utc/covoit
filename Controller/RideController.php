@@ -4,18 +4,35 @@ namespace Controller;
 require_once("View/RidePage.php");
 require_once("View/AddRideFormPage.php");
 require_once("Services/GoogleMaps.php");
+require_once("View/DeleteRideFormPage.php");
+require_once("View/JoinRideFormPage.php");
+
 
 use Services\GoogleMaps;
 use Model\Ride;
 use Model\Car;
+use Model\Passager;
 
 /**
  *
  */
 class RideController
 {
+
+    public function displayRides($request) {
+      (new \DeleteRideFormPage(Ride::getFromUser()))->display();
+    }
+
+    public function displayJoinRides($request) {
+      (new \JoinRideFormPage(Ride::getDifferentFromUser()))->display();
+    }
+
+    public function displayJoinedRides($request) {
+      (new \DeleteRideFormPage(Passager::getJoinedFromUser()))->display();
+    }
+
     public function displayRide($request){
-        (new \RidePage(Ride::find($request->arg("id"))))->display();
+      (new \RidePage(Ride::find($request->arg('id')), "mon_titre", "mon_auteur", "ma_description"))->display();
     }
 
     public function displayAddRideForm(){
@@ -87,11 +104,25 @@ class RideController
                "duration" => $this->get_step_duration($cities[$i]["address"], $cities[$i+1]["address"]),
                "distance" => $this->get_step_distance($cities[$i]["address"], $cities[$i+1]["address"])));
         }
-        $this->DB->addRide($ride_info);
+        //var_dump($ride_info);
+        $created_date = date("Y-m-d H:i:s");
+        $date = date("H:i:s");
+        Ride::create($ride_info["car"], $ride_info["description"], $ride_info["nb_seats"], $ride_info["value_luggage"], $date, $created_date);
+        //public static function create($car_id, $description, $nb_free_seats, $value_luggage, $date, $creation_date, $user_id = null) {
+
     }
 
     public function processEditRideForm(){
 
+    }
+
+    public function processDeleteRide($request){
+        Ride::delete($request->input('id'));
+    }
+
+    public function processJoinRide($request){
+        $creation_date = date("H:i:s");
+        Passager::create($request->input('id'), $creation_date);
     }
 
 }
