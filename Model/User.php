@@ -7,7 +7,7 @@ use App\DB;
 class User extends Model {
 	public static function findByLogin($login) {
 		return static::getDB()->request(
-			'SELECT * FROM '.static::getTableName().' WHERE login = :login',
+			'SELECT * FROM users WHERE login = :login',
 			[
 				'login' => $login
 			],
@@ -20,7 +20,7 @@ class User extends Model {
 
 		if (empty($user)) {
 			static::getDB()->request(
-				'INSERT INTO '.static::getTableName().'(email, login, lastname, firstname) VALUES(:email, :login, :lastname, :firstname)',
+				'INSERT INTO users(email, login, lastname, firstname) VALUES(:email, :login, :lastname, :firstname)',
 				[
 					'email' => $email,
 					'login' => $login,

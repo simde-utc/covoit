@@ -18,14 +18,14 @@ class DB extends \PDO
 
 	public function request($request, $params, $onlyOne = false) {
 		$query = $this->prepare($request);
-		$status $query->execute($params);
+		$query->execute($params);
 
 		if ($query->rowCount() !== 0) {
 			try {
 				return ($onlyOne ? $query->fetch() : $query->fetchAll()) ?? null;
 			}
 			catch (\Exception $e) {
-				return $status;
+				return $query;
 			}
 		}
 		return null;

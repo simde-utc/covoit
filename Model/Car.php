@@ -11,7 +11,7 @@ class Car extends Model
 			$user_id = $_SESSION['id'];
 
 		return self::getDB()->request(
-			"INSERT INTO ".self::getTableName()." VALUES (NULL,:user_id, :model, :color, :nb_seats);",
+			"INSERT INTO cars VALUES (NULL,:user_id, :model, :color, :nb_seats);",
 			[
 				'user_id' => $user_id,
 				'model' => $model,
@@ -26,7 +26,7 @@ class Car extends Model
 			$user_id = $_SESSION['id'];
 
 		return self::getDB()->request(
-			"DELETE FROM ".self::getTableName()." WHERE id = :car_id AND user_id = :user_id",
+			"DELETE FROM cars WHERE id = :car_id AND user_id = :user_id",
 			[
 				'id' => $car_id,
 				'user_id' => $user_id,
@@ -39,7 +39,7 @@ class Car extends Model
 			$user_id = $_SESSION['id'];
 
 		return static::getDB()->request(
-			'SELECT * FROM '.static::getTableName().' WHERE user_id = :id',
+			'SELECT * FROM cars WHERE user_id = :id',
 			[
 				'id' => $user_id
 			]
