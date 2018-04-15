@@ -14,9 +14,9 @@ class HomePage extends Page
     public function generateContent(){
         
         $link1 = Route::getUrl('/rides/add/');
-        $link2 = Route::getUrl('/');
-        $link3 = Route::getUrl('/');
-        $link4 = Route::getUrl('/');
+        $link2 = Route::getUrl('/rides/join/');
+        $link3 = Route::getUrl('/rides/');
+        $link4 = Route::getUrl('/myrides/');
         $link5 = Route::getUrl('/cars/add');
         $link6 = Route::getUrl('/cars/');
         
