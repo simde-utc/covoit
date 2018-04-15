@@ -4,39 +4,32 @@ namespace App;
 
 use Model\Ride;
 
-require_once "Model/Ride.php";
-/**
- *
- */
-class DB
+class DB extends \PDO
 {
-    /**
-     *
-     */
-    private $user_id;
-    private $connexion;
-
-
-    public function __construct(){
-        //$this->user_id = 1;
+	public function __construct()
+	{
 		$config = config('db');
 
-        try{
-            $chaine="mysql:host=".$config['host'].";dbname=".$config['name'];
-            $this->connexion = new \PDO($chaine, $config['user'], $config['password'], [
-				\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
-				\PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC
-			]);
-        }
-        catch(PDOException $e){
-            $exception=new Exception("Problème de connection à la base de donnée");
-            throw $exception;
-        }
-    }
+		parent::__construct("mysql:host=".$config['host'].";dbname=".$config['name'], $config['user'], $config['password'], [
+			\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+			\PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC
+		]);
+	}
 
-    public function deconnexion(){
-        $this->connexion=null;
-    }
+	public function request($request, $params, $onlyOne = false) {
+		$query = $this->prepare($request);
+		$status $query->execute($params);
+
+		if ($query->rowCount() !== 0) {
+			try {
+				return ($onlyOne ? $query->fetch() : $query->fetchAll()) ?? null;
+			}
+			catch (\Exception $e) {
+				return $status;
+			}
+		}
+		return null;
+	}
 
 	public function createOrGetUser($login, $lastname = null, $firstname = null, $email = null) {
 		$query = $this->connexion->prepare("SELECT * FROM User WHERE login = :login");
@@ -134,31 +127,31 @@ class DB
                 "lat" => $inputs["departure_lat"],
                 "lng" => $inputs["departure_lng"]
             ));*/
-            for($i = 0; $i<count($inputs["steps"])-1;$i++){
+            for($i = 0; $i<count($inputs["steps"]);$i++){
                 $dep_id = uniqid();
                 $statement = $this->connexion->prepare("INSERT INTO Place VALUES (:id,:text_address,:description,:lat,:lng);");
                 $statement->execute(array(
                     "id" => $dep_id,
-                    "text_address" => $inputs["steps"][$i]["address"],
+                    "text_address" => $inputs["steps"][$i]["departure"]["address"],
                     "description" => "",
-                    "lat" => $inputs["steps"][$i]["lat"],
-                    "lng" => $inputs["steps"][$i]["lng"]
+                    "lat" => $inputs["steps"][$i]["departure"]["lat"],
+                    "lng" => $inputs["steps"][$i]["departure"]["lng"]
                 ));
                 $arr_id = uniqid();
                 $statement = $this->connexion->prepare("INSERT INTO Place VALUES (:id,:text_address,:description,:lat,:lng);");
                 $statement->execute(array(
                     "id" => $arr_id,
-                    "text_address" => $inputs["steps"][$i+1]["address"],
+                    "text_address" => $inputs["steps"][$i]["arrival"]["address"],
                     "description" => "",
-                    "lat" => $inputs["steps"][$i+1]["lat"],
-                    "lng" => $inputs["steps"][$i+1]["lng"]
+                    "lat" => $inputs["steps"][$i]["arrival"]["lat"],
+                    "lng" => $inputs["steps"][$i]["arrival"]["lng"]
                 ));
                 $statement = $this->connexion->prepare("INSERT INTO Step VALUES (UUID(),:distance,:departure_time,:eco_result,:duration, :description, :departure, :arrival, :ride,:price);");
                 $statement->execute(array(
-                    "distance" => 0,
+                    "distance" => $inputs["steps"][$i]["distance"],
                     "departure_time" => 0,
                     "eco_result" => 0,
-                    "duration" => 0,
+                    "duration" => $inputs["steps"][$i]["duration"],
                     "description" => "",
                     "departure" => $dep_id,
                     "arrival" => $arr_id,

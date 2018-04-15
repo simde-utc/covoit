@@ -20,5 +20,8 @@ Route::get('/rides/add', 'RideController@displayAddRideForm', 'isLogged');
 Route::post('/rides/add', 'RideController@processAddRide', 'isLogged');
 Route::get('/rides/{id}', 'RideController@displayRide', 'isLogged');
 
+// Home
+Route::get('/', 'HomeController@displayHome', 'isLogged');
+
 echo 'PAS DE PAGE TROUVEE !!';
 exit;

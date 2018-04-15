@@ -2,40 +2,47 @@
 
 namespace Model;
 
-/**
- *
- */
-class Car
+use App\DB;
+
+class Car extends Model
 {
-    /**
-     *
-     */
-    public function __construct()
-    {
-    }
+	public static function create($model, $color, $nb_seats, $user_id = null) {
+		if ($user_id === null)
+			$user_id = $_SESSION['id'];
 
-    /**
-     * @var int
-     */
-    public $idCar;
+		return self::getDB()->request(
+			"INSERT INTO ".self::getTableName()." VALUES (NULL,:user_id, :model, :color, :nb_seats);",
+			[
+				'user_id' => $user_id,
+				'model' => $model,
+				'color' => $color,
+				'nb_seats' => $nb_seats,
+			]
+		);
+	}
 
-    /**
-     * @var string
-     */
-    public $model;
+	public static function delete($car_id, $user_id = null) {
+		if ($user_id === null)
+			$user_id = $_SESSION['id'];
 
-    /**
-     * @var string
-     */
-    public $color;
+		return self::getDB()->request(
+			"DELETE FROM ".self::getTableName()." WHERE id = :car_id AND user_id = :user_id",
+			[
+				'id' => $car_id,
+				'user_id' => $user_id,
+			]
+		);
+	}
 
-    /**
-     * @var int
-     */
-    public $nb_seats;
+	public static function getFromUser($user_id = null) {
+		if ($user_id === null)
+			$user_id = $_SESSION['id'];
 
-    /**
-     * @var int
-     */
-    public $owner;
+		return static::getDB()->request(
+			'SELECT * FROM '.static::getTableName().' WHERE user_id = :id',
+			[
+				'id' => $user_id
+			]
+		);
+	}
 }
