@@ -14,11 +14,11 @@ class HomePage extends Page
 		  $this->content = '
           <form>
             <input type="button" value="Ajouter un trajet" onclick="window.location.href=\''.Route::getUrl('/rides/add/').'\'" />
-            <input type="button" value="Rechercher un trajet" onclick="window.location.href=\''.Route::getUrl('/').'\'" />
+            <input type="button" value="Rechercher un trajet" onclick="window.location.href=\''.Route::getUrl('/rides/join/').'\'" />
             <br><br><br><br>
             Trajets:<br>
             <input type="button" value="Mes trajets publiés" onclick="window.location.href=\''.Route::getUrl('/rides').'\'" />
-            <input type="button" value="Mes réservations" onclick="window.location.href=\''.Route::getUrl('/').'\'" />
+            <input type="button" value="Mes réservations" onclick="window.location.href=\''.Route::getUrl('/myrides').'\'" />
             <br><br><br><br>
             Voitures:<br>
             <input type="button" value="Ajouter une voiture" onclick="window.location.href=\''.Route::getUrl('/cars/add').'\'" />

@@ -9,12 +9,12 @@ class CarPage extends Page
         parent::__construct($title, $author, $desc);
         $this->car = $CarObject;
     }
- 
+
     public function generateContent(){
         $this->content = <<<HTML
-        <p>Ma voiture : modèle({$this->car["model"]}), couleur({$this->car["color"]}), sièges({$this->car["nb_seats"]}) et {$this->car["owner"]}.</p>
+        <p>Ma voiture : modèle({$this->car["model"]}), couleur({$this->car["color"]}), sièges({$this->car["nb_seats"]}) et {$this->car["user_id"]}.</p>
 HTML
 ;
-    }   
-    
+    }
+
 }

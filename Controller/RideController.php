@@ -5,11 +5,13 @@ require_once("View/RidePage.php");
 require_once("View/AddRideFormPage.php");
 require_once("Services/GoogleMaps.php");
 require_once("View/DeleteRideFormPage.php");
+require_once("View/JoinRideFormPage.php");
 
 
 use Services\GoogleMaps;
 use Model\Ride;
 use Model\Car;
+use Model\Passager;
 
 /**
  *
@@ -21,8 +23,16 @@ class RideController
       (new \DeleteRideFormPage(Ride::getFromUser()))->display();
     }
 
+    public function displayJoinRides($request) {
+      (new \JoinRideFormPage(Ride::getDifferentFromUser()))->display();
+    }
+
+    public function displayJoinedRides($request) {
+      (new \DeleteRideFormPage(Passager::getJoinedFromUser()))->display();
+    }
+
     public function displayRide($request){
-        (new \RidePage(Ride::find($request->arg("id"))))->display();
+      (new \RidePage(Ride::find($request->arg('id')), "mon_titre", "mon_auteur", "ma_description"))->display();
     }
 
     public function displayAddRideForm(){
@@ -108,6 +118,11 @@ class RideController
 
     public function processDeleteRide($request){
         Ride::delete($request->input('id'));
+    }
+
+    public function processJoinRide($request){
+        $creation_date = date("H:i:s");
+        Passager::create($request->input('id'), $creation_date);
     }
 
 }
