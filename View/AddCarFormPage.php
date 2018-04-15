@@ -11,7 +11,7 @@ class AddCarFormPage extends Page
     public function generateContent(){
         $colors=['white', 'black', 'red', 'blue', 'purple', 'gray', 'red', 'green'];
         $this->content = <<<HTML
-        <form action="submitCar" method="POST">
+        <form action="add" method="POST">
           <div class="form-group">
             <label for="model">Modèle</label>
             <input class="form-control" name="model" placeholder="Renault Twingo">
