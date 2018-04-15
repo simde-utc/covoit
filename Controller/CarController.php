@@ -26,8 +26,7 @@ class CarController
     }
 
 	public function displayCars($request){
-	  $CarsObject = $this->DB->getCarsFromUserId($_SESSION["idUser"]);
-	  new \DeleteCarFormPage($CarsObject);
+	  (new \DeleteCarFormPage($this->DB->getCarsFromUserId($_SESSION["idUser"])))->display();
 	}
 
     // Show a Car
@@ -51,6 +50,10 @@ class CarController
 
     public function processEditCarForm(){
 
+    }
+
+    public function displayDeleteCarForm($request){
+        (new \DeleteCarFormPage($this->DB->getCarFromId($_SESSION['idUser']), "mon_titre", "mon_auteur", "ma_description"))->display();
     }
 
     public function processDeleteCar($request){

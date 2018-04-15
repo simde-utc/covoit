@@ -13,7 +13,7 @@ Route::post('/cars/add', 'CarController@processAddCar', 'isLogged');
 Route::get('/cars/{id}', 'CarController@displayCar', 'isLogged');
 Route::get('/cars/{id}/edit', 'CarController@displayEditCarForm', 'isLogged');
 Route::post('/cars/{id}/edit', 'CarController@processEditCarForm', 'isLogged');
-Route::get('/cars/{id}/delete', 'CarController@processDeleteCar', 'isLogged');
+Route::post('/cars/delete', 'CarController@processDeleteCar', 'isLogged');
 
 // Routes for RideController
 Route::get('/rides/add', 'RideController@displayAddRideForm', 'isLogged');

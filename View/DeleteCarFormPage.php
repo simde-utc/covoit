@@ -12,13 +12,12 @@ class DeleteCarFormPage extends Page
  
     public function generateContent(){
         $this->content = <<<HTML
-        <form action="submitCar" method="POST">
+        <form action="cars/delete" method="POST">
           <div class="form-group">
             <label for="color">Voiture</label>
             <select class="form-control" name="idCar">
 HTML
 ;
-        var_dump($this->cars);
         foreach($this->cars as $c){
             $this->content .= "<option value='{$c['idCar']}'>{$c['model']} {$c['color']}</option>";                
         }
