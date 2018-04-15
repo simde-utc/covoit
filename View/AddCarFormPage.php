@@ -6,6 +6,7 @@ class AddCarFormPage extends Page
 {
     public function __construct($title="", $author="", $desc=""){
         parent::__construct($title, $author, $desc);
+        
     }
 
     public function generateContent(){

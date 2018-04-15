@@ -190,7 +190,7 @@ HTML
         <div id='header'>
             {$this->header}
         </div>
-        <div id='content'>
+        <div style="padding-top:50px;" id='content'>
             {$this->content}
         </div>
         <div id='footer'>
