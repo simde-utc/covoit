@@ -15,8 +15,10 @@ use Model\Car;
  */
 class CarController
 {
+
 	public function displayCars($request) {
 		new \DeleteCarFormPage(Car::getFromUser());
+
 	}
 
     // Show a Car
@@ -49,6 +51,10 @@ class CarController
 
     public function processEditCarForm(){
 
+    }
+
+    public function displayDeleteCarForm($request){
+        (new \DeleteCarFormPage($this->DB->getCarFromId($_SESSION['idUser']), "mon_titre", "mon_auteur", "ma_description"))->display();
     }
 
     public function processDeleteCar($request){

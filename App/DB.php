@@ -60,7 +60,7 @@ class DB extends \PDO
                 "user_id" => $_SESSION["idUser"]
             ));
 
-            $dep_id = uniqid();
+           /* $dep_id = uniqid();
             $statement = $this->connexion->prepare("INSERT INTO Place VALUES (:id,:text_address,:description,:lat,:lng);");
             $statement->execute(array(
                 "id" => $dep_id,
@@ -68,8 +68,41 @@ class DB extends \PDO
                 "description" => "",
                 "lat" => $inputs["departure_lat"],
                 "lng" => $inputs["departure_lng"]
-            ));
+            ));*/
+            for($i = 0; $i<count($inputs["steps"]);$i++){
+                $dep_id = uniqid();
+                $statement = $this->connexion->prepare("INSERT INTO Place VALUES (:id,:text_address,:description,:lat,:lng);");
+                $statement->execute(array(
+                    "id" => $dep_id,
+                    "text_address" => $inputs["steps"][$i]["departure"]["address"],
+                    "description" => "",
+                    "lat" => $inputs["steps"][$i]["departure"]["lat"],
+                    "lng" => $inputs["steps"][$i]["departure"]["lng"]
+                ));
+                $arr_id = uniqid();
+                $statement = $this->connexion->prepare("INSERT INTO Place VALUES (:id,:text_address,:description,:lat,:lng);");
+                $statement->execute(array(
+                    "id" => $arr_id,
+                    "text_address" => $inputs["steps"][$i]["arrival"]["address"],
+                    "description" => "",
+                    "lat" => $inputs["steps"][$i]["arrival"]["lat"],
+                    "lng" => $inputs["steps"][$i]["arrival"]["lng"]
+                ));
+                $statement = $this->connexion->prepare("INSERT INTO Step VALUES (UUID(),:distance,:departure_time,:eco_result,:duration, :description, :departure, :arrival, :ride,:price);");
+                $statement->execute(array(
+                    "distance" => $inputs["steps"][$i]["distance"],
+                    "departure_time" => 0,
+                    "eco_result" => 0,
+                    "duration" => $inputs["steps"][$i]["duration"],
+                    "description" => "",
+                    "departure" => $dep_id,
+                    "arrival" => $arr_id,
+                    "ride" => $id,
+                    "price" => 0.5,
 
+                ));
+            }
+            /*
             $arr_id = uniqid();
             $statement = $this->connexion->prepare("INSERT INTO Place VALUES (:id,:text_address,:description,:lat,:lng);");
             $statement->execute(array(
@@ -92,7 +125,7 @@ class DB extends \PDO
                 "ride" => $id,
                 "price" => 0,
 
-            ));
+            ));*/
 
         }
         catch(PDOException $e){
