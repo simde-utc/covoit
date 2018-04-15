@@ -11,7 +11,7 @@ class AddRideFormPage
     function __construct($carsObjet)
     {
         ?>
-        <form action="submitRide" method="POST">
+        <form action="ride/add" method="POST">
             <textarea name="description"></textarea>
             <input type="number" name="nb_free_seats"/>
             <select name="value_luggage">
@@ -23,7 +23,7 @@ class AddRideFormPage
 
             Depart :
             <input type="datetime-local" name="departure_time"/>
-            <input type="text" name="departure" placeholder="departure adress"> </br
+            <input type="text" name="departure" placeholder="departure adress"> </br>
             <button type="button" onclick="addStep();">Ajouter une étape</button>
             <div id="step_contener">
 
