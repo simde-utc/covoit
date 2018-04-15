@@ -26,10 +26,7 @@ class RideController
     }
     
     public function displayAddRideForm(){
-        $user_id=1;
-        #TODO
-        $carsObjet = $this->DB->getCarsFromUserId($user_id);
-        new \AddRideFormPage($carsObjet);
+        (new \AddRideFormPage($this->DB->getCarsFromUserId($_SESSION["idUser"])))->display();
     }
 
     public function displayEditRideForm($ride_id){
