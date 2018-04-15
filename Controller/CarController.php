@@ -39,10 +39,9 @@ class CarController
       $this->DB->addCar($request);
     }
 
-    // Edit a Car
-    public function displayEditCarForm($car_id){
-      $CarObject = $this->DB->getCarFromId($car_id);
-      new \EditCarFormPage($CarObject);
+
+    public function displayEditCarForm($request){
+        (new \EditCarFormPage($this->DB->getCarFromId($request->arg('id')), "mon_titre", "mon_auteur", "ma_description"))->display();
     }
 
     public function processEditCarForm(){

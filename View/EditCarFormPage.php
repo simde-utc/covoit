@@ -1,21 +1,47 @@
 <?php
 
-class EditCarFormPage
-{
-    function __construct($CarObject)
-    {
+require_once("Page.php");
 
-        ?>
-        <form action="editCar" method="POST">
-            color
-            <input type="text" name="color" value="<?php echo $CarObject['color']?>" />
-            model
-            <input type="text" name="model" value="<?php echo $CarObject['model']?>" />
-            nb_seats
-            <input type="number" name="nb_seats" value="<?php echo $CarObject['nb_seats']?>" />
-            <input type="hidden" name="idCar" value="<?php echo $CarObject['idCar']?>" />
-            <input type="submit" />
-        </form>
-        <?php
+class EditCarFormPage extends Page
+{
+    private $car = null;
+    public function __construct($CarObject, $title="", $author="", $desc=""){
+        parent::__construct($title, $author, $desc);
+        $this->car = $CarObject;
     }
+ 
+    public function generateContent(){
+        $colors=['white', 'black', 'red', 'blue', 'purple', 'gray', 'red', 'green'];
+        $this->content = <<<HTML
+        <form action="submitCar" method="POST>
+          <div class="form-group">
+            <label for="model">Modèle</label>
+            <input class="form-control" id="model" value="{$this->car["model"]}">
+          </div>
+          <div class="form-group">
+            <label for="color">Couleur</label>
+            <select class="form-control" id="color" value="{$this->car["color"]}">
+                "<option style='color:{$this->car["color"]};'>{$this->car["color"]}</option>
+HTML
+;
+        foreach($colors as $color){
+            if($color != $this->car["color"]){
+                $this->content .= "<option style='color:{$color};'>{$color}</option>";                
+            }
+        }
+        
+        $this->content .= <<<HTML
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="nb_seats">Nombre de sièges</label>
+            <input class="form-control" id="nb_seats" min="1" max="5" value="{$this->car["nb_seats"]}">
+          </div>
+          <input type="hidden" id="idCar" value="{$this->car["idCar"]}" />
+          <button type="submit" class="btn btn-primary">Envoyer</button>
+        </form>
+HTML
+;
+    }   
+    
 }
