@@ -11,7 +11,7 @@ class AddRideFormPage
     function __construct($carsObjet)
     {
         ?>
-        <form action="ride/add" method="POST">
+        <form action="rides/add" method="POST">
             <textarea name="description"></textarea>
             <input type="number" name="nb_free_seats"/>
             <select name="value_luggage">
