@@ -5,34 +5,28 @@ require_once("View/RidePage.php");
 require_once("View/AddRideFormPage.php");
 require_once("Services/GoogleMaps.php");
 
-use App\DB;
 use Services\GoogleMaps;
+use Model\Ride;
+use Model\Car;
 
 /**
  *
  */
 class RideController
 {
-    /**
-     *
-     */
-    public $DB;
-
-    public function __construct()
-    {
-        $this->DB = new DB();
-    }
-
     public function displayRide($request){
-        (new \RidePage($this->DB->getRideFromId($request->arg("id"))))->display();
+        (new \RidePage(Ride::find($request->arg("id"))))->display();
     }
-    
+
     public function displayAddRideForm(){
-        (new \AddRideFormPage($this->DB->getCarsFromUserId($_SESSION["idUser"])))->display();
+        new \AddRideFormPage(Car::getFromUser());
     }
 
     public function displayEditRideForm($ride_id){
-      $rideObject = $this->DB->getRideFromId($ride_id);
+    	$ride = Ride::find($request->arg("id"));
+
+		if ($ride->user_id !== $_SESSION['id'])
+			throw new \Exception('Impossible de modifier une route qui ne t\'appartient pas !');
       //new EditRideForm($rideObject);
     }
     private function getCoord($address){

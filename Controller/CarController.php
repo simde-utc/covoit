@@ -8,6 +8,9 @@ require_once("View/AddCarFormPage.php");
 require_once("View/EditCarFormPage.php");
 require_once("View/DeleteCarFormPage.php");
 
+require_once 'Model/Car.php';
+
+use App\Route;
 use Model\Car;
 
 /**
