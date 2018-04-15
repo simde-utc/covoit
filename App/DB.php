@@ -54,7 +54,7 @@ class DB
 				"firstname" => $firstname,
 				"email" => $email,
 			));
-            
+
             return $this->createOrGetUser($login);
 		}
         else
@@ -94,14 +94,14 @@ class DB
 
     }
 
-    public function addCar($content){
+    public function addCar($request){
         try{
             $statement = $this->connexion->prepare("INSERT INTO Car VALUES (NULL,:model,:color,:nb_seats,:owner);");
             $statement->execute(array(
-                "model" => $content["model"],
-                "color" => $content["color"],
-                "nb_seats" => $content["nb_seats"],
-                "owner" => $content["owner"]
+                "model" => $request->input('model'),
+                "color" => $request->input('color'),
+                "nb_seats" => $request->input('nb_seats'),
+                "owner" => $_SESSION["idUser"],
             ));
             //$result=$statement->fetch(\PDO::FETCH_ASSOC);
             //return($result);
@@ -145,9 +145,22 @@ class DB
         }
     }
 
+    public function getCars(){
+        try{
+            $statement = $this->connexion->prepare("SELECT * FROM Car;");
+            $statement->execute();
+            $result=$statement->fetchAll();
+            return($result);
+        }
+        catch(PDOException $e){
+            $this->deconnexion();
+            throw new Exception("problème avec la table Car");
+        }
+    }
+
     public function UpdateCar($content){
         try{
-            $statement = $this->connexion->prepare("UPDATE Car SET `model`=:model, `color`=:color, `nb_seats`=:nb_seats, `owner`=:owner) WHERE `idCar`=:idCar;");
+            $statement = $this->connexion->prepare("UPDATE Car SET `model`=:model, `color`=:color, `nb_seats`=:nb_seats, `owner`=:owner WHERE `idCar`=:idCar;");
             $statement->execute(array(
                 "model" => $content["model"],
                 "color" => $content["color"],
@@ -161,6 +174,19 @@ class DB
         catch(PDOException $e){
             $this->deconnexion();
             throw new Exception("problème d'update dans la table Car");
+        }
+    }
+
+    public function DeleteCar($id){
+        try{
+            $statement = $this->connexion->prepare("DELETE FROM Car WHERE `idCar`=:idCar;");
+            $statement->execute(array(
+                "idCar" => $id,
+            ));
+        }
+        catch(PDOException $e){
+            $this->deconnexion();
+            throw new Exception("problème de delete dans la table Car");
         }
 
     }
