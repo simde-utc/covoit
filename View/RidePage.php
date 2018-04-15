@@ -1,15 +1,21 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: yanis
- * Date: 14/04/2018
- * Time: 20:49
- */
-class RidePage
+require_once("Page.php");
+
+class RidePage extends Page
 {
-    function __construct($rideObject)
-    {
-        print_r($rideObject);
+    private $ride = null;
+    public function __construct($RidePage, $title="", $author="", $desc=""){
+        parent::__construct($title, $author, $desc);
+        $this->ride = $RidePage;
     }
+ 
+    public function generateContent(){
+        var_dump($this->ride);
+        $this->content = <<<HTML
+        <p>Mon ride : </p>
+HTML
+;
+    }   
+    
 }

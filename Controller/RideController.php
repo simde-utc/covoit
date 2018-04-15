@@ -22,9 +22,9 @@ class RideController
     }
 
     public function displayRide($request){
-        $rideObject = $this->DB->getRideFromId($request->arg("id"));
-        new \RidePage($rideObject);
+        (new \RidePage($this->DB->getRideFromId($request->arg("id"))))->display();
     }
+    
     public function displayAddRideForm(){
         $user_id=1;
         #TODO
