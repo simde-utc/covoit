@@ -17,7 +17,7 @@ class HomePage extends Page
             <input type="button" value="Rechercher un trajet" onclick="window.location.href=\''.Route::getUrl('/').'\'" />
             <br><br><br><br>
             Trajets:<br>
-            <input type="button" value="Mes trajets publiés" onclick="window.location.href=\''.Route::getUrl('/').'\'" />
+            <input type="button" value="Mes trajets publiés" onclick="window.location.href=\''.Route::getUrl('/rides').'\'" />
             <input type="button" value="Mes réservations" onclick="window.location.href=\''.Route::getUrl('/').'\'" />
             <br><br><br><br>
             Voitures:<br>
