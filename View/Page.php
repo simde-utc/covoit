@@ -93,7 +93,7 @@ HTML
     public function generateHeader(){
         $this->header = <<<HTML
         <!-- Static navbar -->
-          <nav class="navbar navbar-default">
+          <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container-fluid">
               <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -163,7 +163,6 @@ HTML
         $this->generateHeader();
         $this->generateFooter();
         $this->generateModals();
-        $this->appendCssUrl("Ressources/css/style.css");
         return <<<HTML
 <!doctype html>
 <html lang="fr">
