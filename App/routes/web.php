@@ -20,5 +20,9 @@ Route::get('/rides/add', 'RideController@displayAddRideForm', 'isLogged');
 Route::post('/rides/add', 'RideController@processAddRide', 'isLogged');
 Route::get('/rides/{id}', 'RideController@displayRide', 'isLogged');
 
+require_once "Model/Car.php";
+
+print_r(\Model\Car::getCarsOfUser(1));
+
 echo 'PAS DE PAGE TROUVEE !!';
 exit;

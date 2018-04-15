@@ -42,7 +42,9 @@ CREATE TABLE `cars` (
 
 CREATE TABLE `passagers` (
   `ride_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL
+  `user_id` int(11) NOT NULL,
+  `creation_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `validated_at` DATETIME DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -72,7 +74,8 @@ CREATE TABLE `rides` (
   `description` varchar(200) DEFAULT NULL,
   `nb_free_seats` int(11) DEFAULT NULL,
   `value_luggage` int(11) DEFAULT NULL,
-  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `creation_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -106,7 +109,8 @@ CREATE TABLE `users` (
   `login` varchar(45) DEFAULT NULL,
   `lastname` varchar(45) DEFAULT NULL,
   `firstname` varchar(45) DEFAULT NULL,
-  `eco_result` decimal(7,7) DEFAULT NULL
+  `eco_result` decimal(7,7) DEFAULT '0.0000000',
+  `creation_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --

@@ -2,40 +2,17 @@
 
 namespace Model;
 
-/**
- *
- */
-class Car
+class Car extends Model
 {
-    /**
-     *
-     */
-    public function __construct()
-    {
-    }
+	public static function getFromUser($user_id = null) {
+		if ($user_id === null)
+			$user_id = $_SESSION['id'];
 
-    /**
-     * @var int
-     */
-    public $idCar;
-
-    /**
-     * @var string
-     */
-    public $model;
-
-    /**
-     * @var string
-     */
-    public $color;
-
-    /**
-     * @var int
-     */
-    public $nb_seats;
-
-    /**
-     * @var int
-     */
-    public $owner;
+		return static::getDB()->request(
+			'SELECT * FROM '.static::getTableName().' WHERE user_id = :id',
+			[
+				'id' => $user_id
+			]
+		);
+	}
 }
