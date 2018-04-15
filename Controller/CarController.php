@@ -20,7 +20,7 @@ class CarController
 {
 
 	public function displayCars($request) {
-		new \DeleteCarFormPage(Car::getFromUser());
+		(new \DeleteCarFormPage(Car::getFromUser()))->display();
 
 	}
 

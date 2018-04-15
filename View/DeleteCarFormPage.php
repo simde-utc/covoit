@@ -9,7 +9,7 @@ class DeleteCarFormPage extends Page
         parent::__construct($title, $author, $desc);
         $this->cars = $CarsObject;
     }
- 
+
     public function generateContent(){
         $this->content = <<<HTML
         <form action="cars/delete" method="POST">
@@ -19,9 +19,9 @@ class DeleteCarFormPage extends Page
 HTML
 ;
         foreach($this->cars as $c){
-            $this->content .= "<option value='{$c['idCar']}'>{$c['model']} {$c['color']}</option>";                
+          $this->content .= '<option value="'.$c['id'].'">'.$c['model'].' '.$c['color'].'</option>';
         }
-        
+
         $this->content .= <<<HTML
             </select>
           </div>
@@ -29,6 +29,6 @@ HTML
         </form>
 HTML
 ;
-    }   
-    
+    }
+
 }
